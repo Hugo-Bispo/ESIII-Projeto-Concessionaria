@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -32,7 +33,7 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 	
 	private TextField txtPlaca = new TextField();
 	private TextField txtValor = new TextField();
-	private TextField txtAgencia = new TextField();
+	private DatePicker calendarDataCadastro = new DatePicker();
 	private TextField txtModelo = new TextField();
 	private TextField txtVersao = new TextField();
 	private TextField txtMarca = new TextField();
@@ -66,8 +67,8 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 		pane_info_carro.add(txtPlaca, 1, 0);
 		pane_info_carro.add(TextStyle("Valor: "), 2, 0);
 		pane_info_carro.add(txtValor, 3, 0);
-		pane_info_carro.add(TextStyle("Agência: "), 4, 0);
-		pane_info_carro.add(txtAgencia, 5, 0);
+		pane_info_carro.add(TextStyle("Data Cadastro: "), 4, 0);
+		pane_info_carro.add(calendarDataCadastro, 5, 0);
 		pane_info_carro.add(TextStyle("Modelo: "), 0, 1);
 		pane_info_carro.add(txtModelo, 1, 1);
 		pane_info_carro.add(TextStyle("Versão: "), 2, 1);
@@ -93,7 +94,7 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 		
 		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
 		Bindings.bindBidirectional(txtValor.textProperty(), control_carro.valorProperty());
-		Bindings.bindBidirectional(txtAgencia.textProperty(), control_carro.agenciaProperty());
+		Bindings.bindBidirectional(calendarDataCadastro.valueProperty(), control_carro.data_cadastroProperty());
 		Bindings.bindBidirectional(txtModelo.textProperty(), control_carro.modeloProperty());
 		Bindings.bindBidirectional(txtVersao.textProperty(), control_carro.versaoProperty());
 		Bindings.bindBidirectional(txtMarca.textProperty(), control_carro.marcaProperty());

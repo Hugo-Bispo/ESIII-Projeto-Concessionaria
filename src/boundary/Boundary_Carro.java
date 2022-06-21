@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
 
 public class Boundary_Carro extends Application {
 	control.CarroController control_carro = new CarroController();
@@ -32,7 +33,7 @@ public class Boundary_Carro extends Application {
 	private Text textTitulo = new Text("Controle de Veiculos");
 	private Text textValor = new Text();
 	private Text textDisponibilidade = new Text();
-	private Text textAgencia = new Text();
+	private Text calendarDataCadastro = new Text();
 	private Text textModelo = new Text();
 	private Text textVersao = new Text();
 	private Text textMarca = new Text();
@@ -95,7 +96,7 @@ public class Boundary_Carro extends Application {
 		GridPane paneDisponibilidade = new GridPane();
 		paneDisponibilidade = TextStyle("Disponiblidade:", textDisponibilidade);
 		GridPane paneAgencia = new GridPane();
-		paneAgencia = TextStyle("Agência:", textAgencia);
+		paneAgencia = TextStyle("Data Cadastro:", calendarDataCadastro);
 		GridPane paneAno = new GridPane();
 		paneAno = TextStyle("Ano:", textAno);
 		GridPane paneQuilometragem = new GridPane();
@@ -137,8 +138,8 @@ public class Boundary_Carro extends Application {
 
 		Bindings.bindBidirectional(textValor.textProperty(), control_carro.valorProperty());
 		Bindings.bindBidirectional(textDisponibilidade.textProperty(), control_carro.situacaoProperty());
-		Bindings.bindBidirectional(textAgencia.textProperty(), control_carro.agenciaProperty());
-
+		Bindings.bindBidirectional(calendarDataCadastro.textProperty(), control_carro.data_cadastroProperty(), new LocalDateStringConverter());
+		
 		Bindings.bindBidirectional(textAno.textProperty(), control_carro.anoProperty());
 		Bindings.bindBidirectional(textQuilometragem.textProperty(), control_carro.quilometragemProperty());
 		Bindings.bindBidirectional(textCilindrada.textProperty(), control_carro.cilindraProperty());

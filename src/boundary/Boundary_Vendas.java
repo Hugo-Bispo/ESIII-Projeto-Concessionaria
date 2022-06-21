@@ -185,6 +185,7 @@ public class Boundary_Vendas extends Application {
 		text.setFill(Color.WHITE);
 		text.setStyle("-fx-font: 22 arial;-fx-font-weight: bold");
 		textButton.setFill(Color.WHITE);
+		textButton.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
 		paneStyle.add(text, 0, 0);
 		paneStyle.add(textButton, 1, 0);
 		paneStyle.setMinSize(300, 50);

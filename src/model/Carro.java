@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,31 +33,21 @@ public class Carro {
 	@NotNull
 	private int ano;
 
-	@Column(name = "quilometragem")
-	private Double quilometragem;
-
-	@Column(name = "cilindrada")
-	private Double cilindrada;
-
-	@Column(name = "combustivel")
-	private String combustivel;
-
-	@Column(name = "cambio")
-	private String cambio;
-
-	@Column(name = "cor")
-	private String cor;
-
 	@Column(name = "valor")
 	@NotNull
 	private double valor;
+	
+	@Column(name = "valorFinal")
+	@NotNull
+	private double valorFinal;
 
 	@Column(name = "situacao", length = 1)
 	@NotNull
 	private String situacao;
-
-	@Column(name = "agencia", length = 20)
-	private String agencia;
+	
+	@Column(name="data_cadastro")
+	@NotNull
+	private LocalDate data_cadastro;
 
 	public String getPlaca() {
 		return placa;
@@ -97,52 +89,20 @@ public class Carro {
 		this.ano = ano;
 	}
 
-	public Double getQuilometragem() {
-		return quilometragem;
-	}
-
-	public void setQuilometragem(Double quilometragem) {
-		this.quilometragem = quilometragem;
-	}
-
-	public Double getCilindrada() {
-		return cilindrada;
-	}
-
-	public void setCilindrada(Double cilindrada) {
-		this.cilindrada = cilindrada;
-	}
-
-	public String getCombustivel() {
-		return combustivel;
-	}
-
-	public void setCombustivel(String combustivel) {
-		this.combustivel = combustivel;
-	}
-
-	public String getCambio() {
-		return cambio;
-	}
-
-	public void setCambio(String cambio) {
-		this.cambio = cambio;
-	}
-
-	public String getCor() {
-		return cor;
-	}
-
-	public void setCor(String cor) {
-		this.cor = cor;
-	}
-
 	public double getValor() {
 		return valor;
 	}
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public double getValorFinal() {
+		return valorFinal;
+	}
+
+	public void setValorFinal(double valorFinal) {
+		this.valorFinal = valorFinal;
 	}
 
 	public String getSituacao() {
@@ -153,20 +113,19 @@ public class Carro {
 		this.situacao = situacao;
 	}
 
-	public String getAgencia() {
-		return agencia;
+	public LocalDate getData_cadastro() {
+		return data_cadastro;
 	}
 
-	public void setAgencia(String agencia) {
-		this.agencia = agencia;
+	public void setData_cadastro(LocalDate data_cadastro) {
+		this.data_cadastro = data_cadastro;
 	}
 
 	@Override
 	public String toString() {
 		return "Carro [placa=" + placa + ", modelo=" + modelo + ", versao=" + versao + ", marca=" + marca + ", ano="
-				+ ano + ", quilometragem=" + quilometragem + ", cilindrada=" + cilindrada + ", combustivel="
-				+ combustivel + ", cambio=" + cambio + ", cor=" + cor + ", valor=" + valor + ", situacao=" + situacao
-				+ ", agencia=" + agencia + "]";
+				+ ano + ", valor=" + valor + ", valorFinal=" + valorFinal + ", situacao=" + situacao
+				+ ", data_cadastro=" + data_cadastro + "]";
 	}
 	
 	

@@ -22,6 +22,9 @@ public class Vendedor {
 	@Column(name = "telefone", length = 11)
 	private String telefone;
 
+	@Column(name = "cargo", length = 20)
+	private String cargo;
+
 	public int getFuncional() {
 		return funcional;
 	}
@@ -46,10 +49,18 @@ public class Vendedor {
 		this.telefone = telefone;
 	}
 
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
 	@Override
 	public String toString() {
-		return "Vendedor [funcional=" + funcional + ", nome=" + nome + ", telefone=" + telefone + "]";
+		return "Vendedor [funcional=" + funcional + ", nome=" + nome + ", telefone=" + telefone + ", cargo=" + cargo
+				+ "]";
 	}
-	
-	
+
 }

@@ -1,21 +1,24 @@
 package control;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import org.hibernate.SessionFactory;
-import model.Carro;
-import persistence.CarroDAO;
+import model.CarroCaracteristicas;
+import persistence.CarroCaracteristicasDAO;
 import util.HibernateUtil;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class CarroController {
 	SessionFactory sf = HibernateUtil.getSessionFactory();
-	CarroDAO carroDAO = new CarroDAO(sf);
+	CarroCaracteristicasDAO carroCaracDAO = new CarroCaracteristicasDAO(sf);
 
 	private StringProperty placa = new SimpleStringProperty("");
 	private StringProperty valor = new SimpleStringProperty("");
-	private StringProperty agencia = new SimpleStringProperty("");
+	private ObjectProperty<LocalDate> data_cadastro = new SimpleObjectProperty<LocalDate>();
 	private StringProperty situacao = new SimpleStringProperty("");
 	private StringProperty modelo = new SimpleStringProperty("");
 	private StringProperty versao = new SimpleStringProperty("");
@@ -32,15 +35,15 @@ public class CarroController {
 	public StringProperty placaProperty() {
 		return placa;
 	}
-	
+
 	public StringProperty valorProperty() {
 		return valor;
 	}
-	
-	public StringProperty agenciaProperty() {
-		return agencia;
+
+	public ObjectProperty<LocalDate> data_cadastroProperty() {
+		return data_cadastro;
 	}
-	
+
 	public StringProperty situacaoProperty() {
 		return situacao;
 	}
@@ -81,20 +84,20 @@ public class CarroController {
 		return cor;
 	}
 
-	public Carro boundaryToEntity() {
+	public CarroCaracteristicas boundaryToEntity() {
 
 		placaEntity = placa.get();
 		placaEntity = placaEntity.replace("-", "");
-		Carro c = new Carro();
+		CarroCaracteristicas c = new CarroCaracteristicas();
 
 		if (placaEntity.length() == 7) {
 			c.setPlaca(placaEntity);
 		} else {
 		}
-		
+
 		c.setValor(Double.parseDouble(valor.get()));
 //		c.setSituacao(situacao.get());
-		c.setAgencia(agencia.get());
+		c.setData_cadastro(data_cadastro.get());
 		c.setModelo(modelo.get());
 		c.setVersao(versao.get());
 		c.setMarca(marca.get());
@@ -123,18 +126,18 @@ public class CarroController {
 		return c;
 	}
 
-	public void entityToBoundary(Carro c) {
+	public void entityToBoundary(CarroCaracteristicas c) {
 		if (c != null) {
 			placa.set(c.getPlaca());
 			valor.set(String.valueOf(c.getValor()));
-			
-			if(c.getSituacao().contains("D")) {
+
+			if (c.getSituacao().contains("D")) {
 				situacao.set("Disponivel");
-			}else if(c.getSituacao().contains("V")) {
+			} else if (c.getSituacao().contains("V")) {
 				situacao.set("Vendido");
 			}
 
-			agencia.set(c.getAgencia());
+			data_cadastro.set(c.getData_cadastro());
 			modelo.set(c.getModelo());
 			versao.set(c.getVersao());
 			marca.set(c.getMarca());
@@ -148,16 +151,16 @@ public class CarroController {
 	}
 
 	public void adicionar() throws SQLException {
-		Carro c = new Carro();
+		CarroCaracteristicas c = new CarroCaracteristicas();
 		c = boundaryToEntity();
 		c.setSituacao("D");
-		carroDAO.insert(c);
+		carroCaracDAO.insert(c);
 	}
 
 	public void pesquisar() throws SQLException {
-		Carro c = new Carro();
-		c.setPlaca(placa.get());		
-		c = carroDAO.selectOne(c);
+		CarroCaracteristicas c = new CarroCaracteristicas();
+		c.setPlaca(placa.get());
+		c = carroCaracDAO.selectOne(c);
 		entityToBoundary(c);
 	}
 }

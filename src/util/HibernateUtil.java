@@ -9,6 +9,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import model.Carro;
+import model.CarroCaracteristicas;
 import model.Venda;
 import model.Vendedor;
 
@@ -31,6 +32,7 @@ public class HibernateUtil {
 				
 				configuration.addProperties(prop);
 				configuration.addAnnotatedClass(Carro.class);
+				configuration.addAnnotatedClass(CarroCaracteristicas.class);
 				configuration.addAnnotatedClass(Vendedor.class);
 				configuration.addAnnotatedClass(Venda.class);
 				
