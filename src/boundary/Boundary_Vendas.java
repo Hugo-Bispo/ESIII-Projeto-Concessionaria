@@ -9,7 +9,6 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -26,7 +25,7 @@ import javafx.stage.Stage;
 
 public class Boundary_Vendas extends Application {
 	VendedorController controlVendedor = new VendedorController();
-	
+
 	VendasCotroller controlVenda = new VendasCotroller();
 
 	private Button btnNovoFuncionario = new Button("Criar Funcionario");
@@ -34,18 +33,25 @@ public class Boundary_Vendas extends Application {
 
 	private TextField txtFuncionalVendas = new TextField();
 	private TextField txtPlaca = new TextField();
-	private TextField txtValuePesquisa = new TextField();
-
-	private DatePicker calendarDataVenda = new DatePicker();
-
 	private Button btnPesquisar = new Button("Pesquisar");
 
+	private Text textNomeVendedor = new Text();
+	private Text textTelefoneVendedor = new Text();
+	private Text textCargo = new Text();
+
+	private Text textModelo = new Text();
+	private Text textVersao = new Text();
+	private Text textMarca = new Text();
+	private Text textValor = new Text();
+	private Text textDesconto = new Text();
+	private Text textValorFinal = new Text();
+
 	public void start(Stage stage) throws Exception {
-		
+
 		BackgroundImage background = new BackgroundImage(new Image(getClass().getResourceAsStream("backgound.jpg")),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
 				BackgroundSize.DEFAULT);
-		
+
 		BorderPane border_pane = new BorderPane();
 
 //		TilePane Titulo e Button Cadastrar Cliente
@@ -57,22 +63,72 @@ public class Boundary_Vendas extends Application {
 
 		btnNovoFuncionario.setOnAction(e -> cadastrar_vendedor());
 
-//		Gridpane para Cadastrar Venda de carro
-		GridPane vendas_pane = new GridPane();
-		vendas_pane.add(TextStyle("Codº Vendedor:"), 0, 0);
-		vendas_pane.add(txtFuncionalVendas, 1, 0);
-		vendas_pane.add(TextStyle("Placa Carro:"), 0, 1);
-		vendas_pane.add(txtPlaca, 1, 1);
-		vendas_pane.add(TextStyle("Data venda:"), 0, 2);
-		vendas_pane.add(calendarDataVenda, 1, 2);
-		vendas_pane.add(btnVender, 1, 3);
-		vendas_pane.setHgap(5);
-		vendas_pane.setVgap(10);
-		vendas_pane.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
+//		Gridpane para Pesquisar Informacao
+		GridPane pesquisa_pane = new GridPane();
+		pesquisa_pane.add(TextStyle("Codº Vendedor:"), 0, 0);
+		pesquisa_pane.add(txtFuncionalVendas, 1, 0);
+		pesquisa_pane.add(TextStyle("Placa Carro:"), 2, 0);
+		pesquisa_pane.add(txtPlaca, 3, 0);
+		pesquisa_pane.add(btnPesquisar, 4, 0);
+		pesquisa_pane.setHgap(5);
+		pesquisa_pane.setVgap(10);
+		pesquisa_pane.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
 
-		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.funcionalProperty());
-		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaProperty());
-		Bindings.bindBidirectional(calendarDataVenda.valueProperty(), controlVenda.data_vendaObjectProperty());
+		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.codigoVendedorProperty());
+		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaCarroProperty());
+		
+		btnPesquisar.setOnAction(e -> {
+			try {
+				controlVenda.pesquisar();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
+
+//		Gridpane Informacao Vendedor
+		GridPane vendedor_pane = new GridPane();
+		vendedor_pane.add(TextStyle("Nome: ", textNomeVendedor), 0, 0);
+		vendedor_pane.add(TextStyle("Telefone: ", textTelefoneVendedor), 1, 0);
+		vendedor_pane.add(TextStyle("Cargo: ", textCargo), 2, 0);
+		vendedor_pane.setHgap(5);
+		
+		Bindings.bindBidirectional(textNomeVendedor.textProperty(), controlVenda.nomeVendedorProperty());
+		Bindings.bindBidirectional(textTelefoneVendedor.textProperty(), controlVenda.telefoneVendedorProperty());
+		Bindings.bindBidirectional(textCargo.textProperty(), controlVenda.cargoVendedorProperty());
+
+//		Gridpane Informacao Carro
+		GridPane carro_pane = new GridPane();
+		carro_pane.add(TextStyle("Modelo: ", textModelo), 0, 0);
+		carro_pane.add(TextStyle("Versão: ", textVersao), 1, 0);
+		carro_pane.add(TextStyle("Marca: ", textMarca), 2, 0);
+		carro_pane.add(TextStyle("Valor: ", textValor), 0, 1);
+		carro_pane.add(TextStyle("Desconto: ", textDesconto), 1, 1);
+		carro_pane.add(TextStyle("Valor Final: ", textValorFinal), 2, 1);
+		carro_pane.setHgap(5);
+		carro_pane.setVgap(1);
+		
+		Bindings.bindBidirectional(textModelo.textProperty(), controlVenda.modeloCarroProperty());
+		Bindings.bindBidirectional(textVersao.textProperty(), controlVenda.versaoCarroProperty());
+		Bindings.bindBidirectional(textMarca.textProperty(), controlVenda.marcaCarroProperty());
+		Bindings.bindBidirectional(textValor.textProperty(), controlVenda.valorCarroProperty());
+		Bindings.bindBidirectional(textDesconto.textProperty(), controlVenda.valorDescontoCarroProperty());
+		Bindings.bindBidirectional(textValorFinal.textProperty(), controlVenda.valorFinalCarroProperty());
+
+//		GridPane Uniao Vendedor e Carro
+
+		GridPane informacaoVenda_pane = new GridPane();
+		informacaoVenda_pane.add(pesquisa_pane, 0, 0);
+		informacaoVenda_pane.add(TextStyle("Informações Venda"), 0, 1);
+		informacaoVenda_pane.add(TextStyle("Vendedor"), 0, 2);
+		informacaoVenda_pane.add(vendedor_pane, 0, 3);
+		informacaoVenda_pane.add(TextStyle("Carro"), 0, 4);
+		informacaoVenda_pane.add(carro_pane, 0, 5);
+		informacaoVenda_pane.setAlignment(Pos.CENTER);
+		informacaoVenda_pane.setHgap(5);
+		informacaoVenda_pane.setVgap(10);
+		informacaoVenda_pane.setMinSize(300, 50);
+		informacaoVenda_pane.setMaxSize(300, 50);
 
 		btnVender.setOnAction(e -> {
 			try {
@@ -83,32 +139,10 @@ public class Boundary_Vendas extends Application {
 			}
 		});
 
-//		GridPane Botões Pesquisa
-		GridPane consulta_pane = new GridPane();
-		consulta_pane.add(TextStyle("Pesquisar Vendas por Vendedor"), 0, 0);
-		consulta_pane.add(txtValuePesquisa, 0, 1);
-		consulta_pane.add(btnPesquisar, 1, 1);
-		consulta_pane.setHgap(5);
-		consulta_pane.setVgap(10);
-		consulta_pane.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
-
-		Bindings.bindBidirectional(txtValuePesquisa.textProperty(), controlVenda.txtValuePesquisaProperty());
-
-		btnPesquisar.setOnAction(e -> controlVenda.pesquisar());
-
-//		União GridPane Pesquisa e Cadastrar Venda
-		GridPane PesquisaCadastra_pane = new GridPane();
-		PesquisaCadastra_pane.add(vendas_pane, 0, 0);
-		PesquisaCadastra_pane.add(consulta_pane, 1, 0);
-		PesquisaCadastra_pane.setAlignment(Pos.CENTER);
-		PesquisaCadastra_pane.setHgap(50);
-
 //		BorderPane Definindo Posiçoes
 		border_pane.setTop(index_pane);
-		border_pane.setCenter(PesquisaCadastra_pane);
-		border_pane.setBottom(controlVenda.getTable());
+		border_pane.setCenter(informacaoVenda_pane);
 		border_pane.setBackground(new Background(background));
-		BorderPane.setAlignment(controlVenda.getTable(), Pos.CENTER);
 
 		Scene snc = new Scene(border_pane, 1280, 720);
 
@@ -137,12 +171,29 @@ public class Boundary_Vendas extends Application {
 
 		return paneStyle;
 	}
-	
+
 	public Text TextStyle(String texto) {
 		Text text = new Text(texto);
 		text.setFill(Color.WHITE);
 		text.setStyle("-fx-font: 24 arial;-fx-font-weight: bold;");
 		return text;
+	}
+
+	public GridPane TextStyle(String textIndice, Text textButton) {
+		GridPane paneStyle = new GridPane();
+		Text text = new Text(textIndice);
+		text.setFill(Color.WHITE);
+		text.setStyle("-fx-font: 22 arial;-fx-font-weight: bold");
+		textButton.setFill(Color.WHITE);
+		paneStyle.add(text, 0, 0);
+		paneStyle.add(textButton, 1, 0);
+		paneStyle.setMinSize(300, 50);
+		paneStyle.setMaxSize(300, 50);
+		paneStyle.setAlignment(Pos.CENTER);
+		paneStyle.setStyle("-fx-background-radius: 300px;-fx-border-radius: 300px;"
+				+ "-fx-border-width: 5px;-fx-border-color: GRAY;");
+
+		return paneStyle;
 	}
 
 	public static void main(String[] args) {

@@ -15,10 +15,6 @@ import persistence.VendaDAO;
 import persistence.VendedorDAO;
 import util.HibernateUtil;
 import javafx.beans.property.*;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -33,78 +29,63 @@ public class VendasCotroller implements Controller_Interfaces<Venda> {
 
 	ObservableList<Venda> vendasLista = FXCollections.observableArrayList();
 
-	private StringProperty funcional = new SimpleStringProperty("");
-	private StringProperty placa = new SimpleStringProperty("");
-	private ObjectProperty<LocalDate> data_venda = new SimpleObjectProperty<LocalDate>();
-	private StringProperty boxPesquisa = new SimpleStringProperty("");
-	private StringProperty txtValuePesquisa = new SimpleStringProperty("");
+	private StringProperty codigoVendedor = new SimpleStringProperty("");
+	private StringProperty nomeVendedor = new SimpleStringProperty("");
+	private StringProperty telefoneVendedor = new SimpleStringProperty("");
+	private StringProperty cargoVendedor = new SimpleStringProperty();
+
+	private StringProperty placaCarro = new SimpleStringProperty("");
+	private StringProperty modeloCarro = new SimpleStringProperty("");
+	private StringProperty versaoCarro = new SimpleStringProperty("");
+	private StringProperty marcaCarro = new SimpleStringProperty("");
+	private StringProperty valorCarro = new SimpleStringProperty("");
+	private StringProperty valorDescontoCarro = new SimpleStringProperty("");
+	private StringProperty valorFinalCarro = new SimpleStringProperty("");
 
 	private String placaEntity;
 
-	private TableView<Venda> table = new TableView<>();
-
-	public StringProperty funcionalProperty() {
-		return funcional;
+	public StringProperty codigoVendedorProperty() {
+		return codigoVendedor;
 	}
 
-	public StringProperty placaProperty() {
-		return placa;
+	public StringProperty nomeVendedorProperty() {
+		return nomeVendedor;
 	}
 
-	public ObjectProperty<LocalDate> data_vendaObjectProperty() {
-		return data_venda;
+	public StringProperty telefoneVendedorProperty() {
+		return telefoneVendedor;
 	}
 
-	public StringProperty boxPesquisaProperty() {
-		return boxPesquisa;
+	public StringProperty cargoVendedorProperty() {
+		return cargoVendedor;
 	}
 
-	public StringProperty txtValuePesquisaProperty() {
-		return txtValuePesquisa;
+	public StringProperty placaCarroProperty() {
+		return placaCarro;
 	}
 
-	@SuppressWarnings("unchecked")
+	public StringProperty modeloCarroProperty() {
+		return modeloCarro;
+	}
 
-	public VendasCotroller() {
-		System.out.println(vendasLista.toString());
-		TableColumn<Venda, Integer> col1 = new TableColumn<>("Codº Vendedor");
-		col1.setCellValueFactory(new PropertyValueFactory<>("funcional"));
+	public StringProperty versaoCarroProperty() {
+		return versaoCarro;
+	}
 
-		TableColumn<Venda, String> col2 = new TableColumn<>("Placa Carro");
-		col2.setCellValueFactory(new PropertyValueFactory<>("placa"));
+	public StringProperty marcaCarroProperty() {
+		return marcaCarro;
+	}
 
-		TableColumn<Venda, String> col3 = new TableColumn<>("Modelo");
-		col3.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+	public StringProperty valorCarroProperty() {
+		return valorCarro;
+	}
 
-		TableColumn<Venda, String> col4 = new TableColumn<>("Versão");
-		col4.setCellValueFactory(new PropertyValueFactory<>("versao"));
+	public StringProperty valorDescontoCarroProperty() {
+		return valorDescontoCarro;
+	}
 
-		TableColumn<Venda, String> col5 = new TableColumn<>("Marca");
-		col5.setCellValueFactory(new PropertyValueFactory<>("marca"));
-
-		TableColumn<Venda, String> col6 = new TableColumn<>("Câmbio");
-		col6.setCellValueFactory(new PropertyValueFactory<>("cambio"));
-
-		TableColumn<Venda, String> col7 = new TableColumn<>("Cor");
-		col7.setCellValueFactory(new PropertyValueFactory<>("cor"));
-
-		TableColumn<Venda, String> col8 = new TableColumn<>("Data");
-
-		col8.setCellValueFactory((itemData) -> {
-			LocalDate dt = itemData.getValue().getData_venda();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			return new ReadOnlyStringWrapper(dt.format(formatter));
-		});
-
-		TableColumn<Venda, Double> col9 = new TableColumn<>("Valor");
-		col9.setCellValueFactory(new PropertyValueFactory<>("valor"));
-
-		table.setItems(vendasLista);
-//		table.getColumns().addAll(col1, col8);
-		table.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9);
-
-		table.setMinSize(1000, 300);
-		table.setMaxSize(1000, 300);
+	public StringProperty valorFinalCarroProperty() {
+		return valorFinalCarro;
 	}
 
 	@Override
@@ -113,30 +94,36 @@ public class VendasCotroller implements Controller_Interfaces<Venda> {
 		Carro carro = new Carro();
 		Vendedor vendedor = new Vendedor();
 
-		placaEntity = placa.get();
+		placaEntity = placaCarro.get();
 		placaEntity = placaEntity.replace("-", "");
 		carro.setPlaca(placaEntity);
 		carro = carroDAO.selectOne(carro);
-		
+
 		try {
-			vendedor.setFuncional(Integer.parseInt(funcional.get()));
+			vendedor.setFuncional(Integer.parseInt(codigoVendedor.get()));
 		} catch (NumberFormatException e) {
 			System.err.println(e);
 		}
 		vendedor = vendedorDAO.selectOne(vendedor);
 		venda.setCarro(carro);
 		venda.setVendedor(vendedor);
-		venda.setData_venda(data_venda.get());
 		return venda;
 	}
 
 	@Override
 	public void entityToBoundary(Venda v) {
-//		if (v != null) {
-//			funcional.set(v.getPlaca());
-//			placa.set(v.getPlaca());
-//			data_venda.set(v.getData_venda());
-//		}
+		if (v != null) {
+			nomeVendedor.set(v.getVendedor().getNome());
+			telefoneVendedor.set(v.getVendedor().getTelefone());
+			cargoVendedor.set("Implementar");
+			modeloCarro.set(v.getCarro().getModelo());
+			versaoCarro.set(v.getCarro().getVersao());
+			marcaCarro.set(v.getCarro().getMarca());
+			valorCarro.set(String.valueOf(v.getCarro().getValor()));
+			valorDescontoCarro.set("");
+			valorFinalCarro.set("");
+
+		}
 
 	}
 
@@ -152,15 +139,10 @@ public class VendasCotroller implements Controller_Interfaces<Venda> {
 	}
 
 	@Override
-	public void pesquisar() {
-//		List<Venda> lista = dao.consultarVendaFuncional(txtValuePesquisa.get());
-//		vendasLista.clear();
-//		vendasLista.addAll(lista);
-//		System.out.println(vendasLista.toString());
-	}
-
-	public TableView<Venda> getTable() {
-		return table;
+	public void pesquisar() throws SQLException {
+		Venda v = new Venda();
+		v = boundaryToEntity();
+		entityToBoundary(v);
 	}
 
 }
