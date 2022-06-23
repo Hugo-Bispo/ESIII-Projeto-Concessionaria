@@ -29,7 +29,9 @@ public class Boundary_Vendas extends Application {
 	VendasCotroller controlVenda = new VendasCotroller();
 
 	private Button btnNovoFuncionario = new Button("Criar Funcionario");
+	private Button btnTables = new Button("Tabelas");
 	private Button btnVender = new Button("Vender");
+	private Button btnProcurarDesconto = new Button("Desconto");
 
 	private TextField txtFuncionalVendas = new TextField();
 	private TextField txtPlaca = new TextField();
@@ -56,12 +58,13 @@ public class Boundary_Vendas extends Application {
 
 //		TilePane Titulo e Button Cadastrar Cliente
 		TilePane index_pane = new TilePane();
-		index_pane.getChildren().addAll(TextStyle("Cadastro de Vendas"), btnNovoFuncionario);
+		index_pane.getChildren().addAll(TextStyle("Cadastro de Vendas"), btnNovoFuncionario, btnTables);
 		index_pane.setHgap(100);
 		index_pane.setAlignment(Pos.CENTER);
 		index_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
 
 		btnNovoFuncionario.setOnAction(e -> cadastrar_vendedor());
+		btnTables.setOnAction(e -> exibir_tables());
 
 //		Gridpane para Pesquisar Informacao
 		GridPane pesquisa_pane = new GridPane();
@@ -76,7 +79,7 @@ public class Boundary_Vendas extends Application {
 
 		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.codigoVendedorProperty());
 		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaCarroProperty());
-		
+
 		btnPesquisar.setOnAction(e -> {
 			try {
 				controlVenda.pesquisar();
@@ -92,7 +95,7 @@ public class Boundary_Vendas extends Application {
 		vendedor_pane.add(TextStyle("Telefone: ", textTelefoneVendedor), 1, 0);
 		vendedor_pane.add(TextStyle("Cargo: ", textCargo), 2, 0);
 		vendedor_pane.setHgap(5);
-		
+
 		Bindings.bindBidirectional(textNomeVendedor.textProperty(), controlVenda.nomeVendedorProperty());
 		Bindings.bindBidirectional(textTelefoneVendedor.textProperty(), controlVenda.telefoneVendedorProperty());
 		Bindings.bindBidirectional(textCargo.textProperty(), controlVenda.cargoVendedorProperty());
@@ -107,7 +110,7 @@ public class Boundary_Vendas extends Application {
 		carro_pane.add(TextStyle("Valor Final: ", textValorFinal), 2, 1);
 		carro_pane.setHgap(5);
 		carro_pane.setVgap(1);
-		
+
 		Bindings.bindBidirectional(textModelo.textProperty(), controlVenda.modeloCarroProperty());
 		Bindings.bindBidirectional(textVersao.textProperty(), controlVenda.versaoCarroProperty());
 		Bindings.bindBidirectional(textMarca.textProperty(), controlVenda.marcaCarroProperty());
@@ -115,20 +118,12 @@ public class Boundary_Vendas extends Application {
 		Bindings.bindBidirectional(textDesconto.textProperty(), controlVenda.valorDescontoCarroProperty());
 		Bindings.bindBidirectional(textValorFinal.textProperty(), controlVenda.valorFinalCarroProperty());
 
-//		GridPane Uniao Vendedor e Carro
-
-		GridPane informacaoVenda_pane = new GridPane();
-		informacaoVenda_pane.add(pesquisa_pane, 0, 0);
-		informacaoVenda_pane.add(TextStyle("Informações Venda"), 0, 1);
-		informacaoVenda_pane.add(TextStyle("Vendedor"), 0, 2);
-		informacaoVenda_pane.add(vendedor_pane, 0, 3);
-		informacaoVenda_pane.add(TextStyle("Carro"), 0, 4);
-		informacaoVenda_pane.add(carro_pane, 0, 5);
-		informacaoVenda_pane.setAlignment(Pos.CENTER);
-		informacaoVenda_pane.setHgap(5);
-		informacaoVenda_pane.setVgap(10);
-		informacaoVenda_pane.setMinSize(300, 50);
-		informacaoVenda_pane.setMaxSize(300, 50);
+//		TilePane Botoes Vender e Desconto
+		TilePane descontoVender_pane = new TilePane();
+		descontoVender_pane.getChildren().addAll(btnProcurarDesconto, btnVender);
+		descontoVender_pane.setHgap(20);
+		descontoVender_pane.setAlignment(Pos.BOTTOM_CENTER);
+		descontoVender_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
 
 		btnVender.setOnAction(e -> {
 			try {
@@ -138,6 +133,31 @@ public class Boundary_Vendas extends Application {
 				e1.printStackTrace();
 			}
 		});
+
+		btnProcurarDesconto.setOnAction(e -> {
+			try {
+				controlVenda.procurarDesconto();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+//		GridPane Uniao Vendedor e Carro
+
+		GridPane informacaoVenda_pane = new GridPane();
+		informacaoVenda_pane.add(pesquisa_pane, 0, 0);
+		informacaoVenda_pane.add(TextStyle("Informações Venda"), 0, 1);
+		informacaoVenda_pane.add(TextStyle("Vendedor"), 0, 2);
+		informacaoVenda_pane.add(vendedor_pane, 0, 3);
+		informacaoVenda_pane.add(TextStyle("Carro"), 0, 4);
+		informacaoVenda_pane.add(carro_pane, 0, 5);
+		informacaoVenda_pane.add(descontoVender_pane, 0, 6);
+		informacaoVenda_pane.setAlignment(Pos.CENTER);
+		informacaoVenda_pane.setHgap(5);
+		informacaoVenda_pane.setVgap(10);
+		informacaoVenda_pane.setMinSize(300, 50);
+		informacaoVenda_pane.setMaxSize(300, 50);
 
 //		BorderPane Definindo Posiçoes
 		border_pane.setTop(index_pane);
@@ -157,6 +177,16 @@ public class Boundary_Vendas extends Application {
 		SubBoundary_Vendedor vendedor = new SubBoundary_Vendedor();
 		try {
 			vendedor.start(new Stage());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+	}
+	
+	public void exibir_tables() {
+		SubBoundaryTables tables = new SubBoundaryTables();
+		try {
+			tables.start(new Stage());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

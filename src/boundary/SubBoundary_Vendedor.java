@@ -6,9 +6,11 @@ import control.VendasCotroller;
 import control.VendedorController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +26,7 @@ public class SubBoundary_Vendedor extends Application {
 	private TextField txtFuncionalVendedor = new TextField();
 	private TextField txtNome = new TextField();
 	private TextField txtTelefone = new TextField();
+	private ComboBox<String> boxCargo = new ComboBox<String>(FXCollections.observableArrayList("Vendedor", "Gerente"));
 	private Button btnPesquisar = new Button("Pesquisar");
 
 	public void start(Stage stage) throws Exception {
@@ -38,8 +41,10 @@ public class SubBoundary_Vendedor extends Application {
 		vendedor_pane.add(txtNome, 1, 2);
 		vendedor_pane.add(new Label("Telefone:"), 0, 3);
 		vendedor_pane.add(txtTelefone, 1, 3);
-		vendedor_pane.add(btnCriar, 0, 4);
-		vendedor_pane.add(btnPesquisar, 1, 4);
+		vendedor_pane.add(new Label("Cargo: "), 0, 4);
+		vendedor_pane.add(boxCargo, 1, 4);
+		vendedor_pane.add(btnCriar, 0, 5);
+		vendedor_pane.add(btnPesquisar, 1, 5);
 		vendedor_pane.setHgap(5);
 		vendedor_pane.setVgap(10);
 		vendedor_pane.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
@@ -50,6 +55,7 @@ public class SubBoundary_Vendedor extends Application {
 		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), controlVendedor.funcionalProperty());
 		Bindings.bindBidirectional(txtNome.textProperty(), controlVendedor.nomeProperty());
 		Bindings.bindBidirectional(txtTelefone.textProperty(), controlVendedor.telefoneProperty());
+		Bindings.bindBidirectional(boxCargo.valueProperty(), controlVendedor.cargoProperty());
 
 		btnCriar.setOnAction(e -> {
 			try {
@@ -66,7 +72,7 @@ public class SubBoundary_Vendedor extends Application {
 			}
 		});
 
-		Scene snc = new Scene(tela_pane, 500, 300);
+		Scene snc = new Scene(tela_pane, 500, 400);
 
 		stage.setTitle("Cadastro de Vendedor");
 		stage.setResizable(false);

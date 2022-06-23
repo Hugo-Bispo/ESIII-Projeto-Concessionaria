@@ -57,7 +57,7 @@ public class VendedorDAO implements IFuncoesDAO<Vendedor> {
 	@Override
 	public List<Vendedor> selectAll() {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT funcional, nome, telefone FROM vendedor;");
+		sql.append("SELECT funcional, nome, telefone, cargo FROM vendedor;");
 		EntityManager entityManager = sf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> vendedorResultSet = query.getResultList();
@@ -67,6 +67,7 @@ public class VendedorDAO implements IFuncoesDAO<Vendedor> {
 			vendedor.setFuncional(Integer.parseInt(o[0].toString()));
 			vendedor.setNome((o[1].toString()));
 			vendedor.setTelefone((o[2].toString()));
+			vendedor.setCargo((o[3].toString()));
 			vendedores.add(vendedor);
 		}
 

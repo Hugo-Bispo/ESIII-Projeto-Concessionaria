@@ -8,10 +8,10 @@ public class DescontoSeisMesesAgencia implements IDesconto {
 	
 	public double calculaDesconto(Venda v) {
 		LocalDate dataAtual = LocalDate.now();
-		LocalDate dataCadastro = v.getData_venda().plusMonths(6);
+		LocalDate dataCadastro = v.getCarro().getData_cadastro().plusMonths(6);
 		Double valorFinal = v.getCarro().getValorFinal();
 		
-		if (dataCadastro.isAfter(dataAtual) && v.getCarro().getValor() < 200000 ) {
+		if (dataAtual.isAfter(dataCadastro) && v.getCarro().getValor() < 200000 ) {
 			valorFinal = valorFinal - (valorFinal * 0.01);
 	}
 	return valorFinal;
@@ -19,6 +19,10 @@ public class DescontoSeisMesesAgencia implements IDesconto {
 
 	@Override
 	public void proximoDesconto(Venda v) {
+		if(v.getCarro().getValorFinal() == 0) {
+			v.getCarro().setValorFinal(v.getCarro().getValor());
+		}
+		System.out.println("Seis Meses" + v.getCarro().getValorFinal());
 		v.getCarro().setValorFinal(calculaDesconto(v));
 		DescontoUmAnoAgencia descValor = new DescontoUmAnoAgencia();
 		descValor.proximoDesconto(v);

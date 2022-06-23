@@ -1,12 +1,14 @@
 package control;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
 
+import control.descontoCoR.DescontoMarca;
 import model.Carro;
 import model.Venda;
 import model.Vendedor;
@@ -21,13 +23,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class VendasCotroller implements Controller_Interfaces<Venda> {
+public class VendasCotroller implements IController<Venda> {
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	CarroDAO carroDAO = new CarroDAO(sf);
 	VendaDAO vendaDAO = new VendaDAO(sf);
 	VendedorDAO vendedorDAO = new VendedorDAO(sf);
+	DescontoMarca descontoCoR = new DescontoMarca();
 
-	ObservableList<Venda> vendasLista = FXCollections.observableArrayList();
+	DecimalFormat df = new DecimalFormat("#,###.00");
 
 	private StringProperty codigoVendedor = new SimpleStringProperty("");
 	private StringProperty nomeVendedor = new SimpleStringProperty("");
@@ -115,13 +118,17 @@ public class VendasCotroller implements Controller_Interfaces<Venda> {
 		if (v != null) {
 			nomeVendedor.set(v.getVendedor().getNome());
 			telefoneVendedor.set(v.getVendedor().getTelefone());
-			cargoVendedor.set("Implementar");
+			cargoVendedor.set(v.getVendedor().getCargo());
 			modeloCarro.set(v.getCarro().getModelo());
 			versaoCarro.set(v.getCarro().getVersao());
 			marcaCarro.set(v.getCarro().getMarca());
-			valorCarro.set(String.valueOf(v.getCarro().getValor()));
-			valorDescontoCarro.set("");
-			valorFinalCarro.set("");
+			valorCarro.set(String.valueOf(df.format(v.getCarro().getValor())));
+			if(v.getCarro().getValorFinal() == 0) {
+				valorDescontoCarro.set("0");
+			}else {
+				valorDescontoCarro.set(String.valueOf(df.format(v.getCarro().getValor() - v.getCarro().getValorFinal())));
+			}
+			valorFinalCarro.set(String.valueOf(df.format(v.getCarro().getValorFinal())));
 
 		}
 
@@ -133,9 +140,17 @@ public class VendasCotroller implements Controller_Interfaces<Venda> {
 		v = boundaryToEntity();
 		System.out.println(v.toString());
 		v.getCarro().setSituacao("V");
+		v.setData_venda(LocalDate.now());
 		vendaDAO.insert(v);
 		carroDAO.update(v.getCarro());
-//		vendasLista.add(v);
+	}
+
+	public void procurarDesconto() throws SQLException {
+		Venda v = new Venda();
+		v = boundaryToEntity();
+		descontoCoR.proximoDesconto(v);
+		System.out.println(v.getCarro().getValorFinal());
+		entityToBoundary(v);
 	}
 
 	@Override

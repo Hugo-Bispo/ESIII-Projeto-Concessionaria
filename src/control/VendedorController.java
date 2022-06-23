@@ -10,13 +10,14 @@ import util.HibernateUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class VendedorController implements Controller_Interfaces<Vendedor> {
+public class VendedorController implements IController<Vendedor> {
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	VendedorDAO dao = new VendedorDAO(sf);
 	
 	private StringProperty funcional = new SimpleStringProperty("");
 	private StringProperty nome = new SimpleStringProperty("");
 	private StringProperty telefone = new SimpleStringProperty("");
+	private StringProperty cargo = new SimpleStringProperty("");
 
 
 	public StringProperty funcionalProperty() {
@@ -30,6 +31,10 @@ public class VendedorController implements Controller_Interfaces<Vendedor> {
 	public StringProperty telefoneProperty() {
 		return telefone;
 	}
+	
+	public StringProperty cargoProperty() {
+		return cargo;
+	}
 
 	public Vendedor boundaryToEntity() {
 		Vendedor v = new Vendedor();
@@ -40,6 +45,7 @@ public class VendedorController implements Controller_Interfaces<Vendedor> {
 		}
 		v.setNome(nome.get());
 		v.setTelefone(telefone.get());
+		v.setCargo(cargo.get());
 		return v;
 	}
 
@@ -48,6 +54,7 @@ public class VendedorController implements Controller_Interfaces<Vendedor> {
 			funcional.set(String.valueOf(v.getFuncional()));
 			nome.set(v.getNome());
 			telefone.set(v.getTelefone());
+			cargo.set(v.getCargo());
 		}
 	}
 	

@@ -19,6 +19,10 @@ public class DescontoMarca implements IDesconto {
 
 	@Override
 	public void proximoDesconto(Venda v) {
+		if(v.getCarro().getValorFinal() == 0) {
+			v.getCarro().setValorFinal(v.getCarro().getValor());
+		}
+		System.out.println("Desconto Marca" + v.getCarro().getValorFinal());
 		v.getCarro().setValorFinal(calculaDesconto(v));
 		DescontoVendedorCargo descValor = new DescontoVendedorCargo();
 		descValor.proximoDesconto(v);
