@@ -65,9 +65,9 @@ public class VendedorDAO implements IFuncoesDAO<Vendedor> {
 		for (Object[] o : vendedorResultSet) {
 			Vendedor vendedor = VendedorBuilder.builder()
 					.addFuncional(Integer.parseInt(o[0].toString()))
-					.addNome((o[1].toString()))
-					.addTelefone((o[2].toString()))
-					.addCargo((o[3].toString()))
+					.addNome(o[1].toString())
+					.addTelefone(o[2].toString())
+					.addCargo(o[3].toString())
 					.get();
 			vendedores.add(vendedor);
 		}
