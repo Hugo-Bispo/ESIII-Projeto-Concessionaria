@@ -59,7 +59,10 @@ public class CarroDAO implements IFuncoesDAO<Carro> {
 	@Override
 	public List<Carro> selectAll() {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT placa, modelo, versao, marca, ano, situacao, data_cadastro, valor, valorFinal from carro;");
+		sql.append("SELECT carro.placa, carro.modelo, carro.versao, carro.marca, carro.ano, carro.situacao,"
+				+ "carro.data_cadastro, carro.valor, carac.cilindrada, carac.combustivel, carac.cambio,"
+				+ "carac.cor, carac.quilometragem from carro "
+				+ "INNER JOIN carrocaracteristicas as carac ON carac.id_caracteristica = carro.id_caracteristica;");
 		EntityManager entityManager = sf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> carroResultSet = query.getResultList();
@@ -71,7 +74,7 @@ public class CarroDAO implements IFuncoesDAO<Carro> {
 					.addSituacao(o[5].toString())
 					.addDataCadastro(LocalDate.parse(o[6].toString()))
 					.addValor(Double.parseDouble(o[7].toString()))
-					.addValorFinal(Double.parseDouble(o[8].toString()))
+					.addCaracteristicas(Double.parseDouble(o[7].toString()), o[7].toString(), o[7].toString(), o[7].toString())
 					.get();
 
 			carros.add(carro);

@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Carro;
 
-public class TablesController {
+public class TabelaCarro {
 	private TableView<Carro> tableCarro = new TableView<>();
 	private StringProperty boxTypePesquisa = new SimpleStringProperty("");
 	ObservableList<Carro> carroLista = FXCollections.observableArrayList();
@@ -19,7 +19,7 @@ public class TablesController {
 	}
 
 	@SuppressWarnings("unchecked")
-	public TablesController() {
+	public TabelaCarro() {
 		TableColumn<Carro, Integer> col1 = new TableColumn<>("Placa Carro");
 		col1.setCellValueFactory(new PropertyValueFactory<>("placa"));
 

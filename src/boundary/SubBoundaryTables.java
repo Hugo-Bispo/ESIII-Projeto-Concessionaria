@@ -37,6 +37,8 @@ public class SubBoundaryTables extends Application {
 		pesquisa_pane.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
 		pesquisa_pane.setAlignment(Pos.CENTER);
 
+		btnPesquisar.setOnAction(e ->control.getTable());
+				
 		tela_pane.setTop(pesquisa_pane);
 		tela_pane.setBottom(control.getTable());
 
