@@ -3,25 +3,17 @@ package control;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import org.hibernate.SessionFactory;
 
 import control.descontoCoR.DescontoMarca;
-import model.Carro;
 import model.Venda;
-import model.Vendedor;
+import model.VendaBuilder;
 import persistence.CarroDAO;
 import persistence.VendaDAO;
 import persistence.VendedorDAO;
 import util.HibernateUtil;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class VendasCotroller implements IController<Venda> {
 	SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -93,23 +85,19 @@ public class VendasCotroller implements IController<Venda> {
 
 	@Override
 	public Venda boundaryToEntity() throws SQLException {
-		Venda venda = new Venda();
-		Carro carro = new Carro();
-		Vendedor vendedor = new Vendedor();
-
 		placaEntity = placaCarro.get();
 		placaEntity = placaEntity.replace("-", "");
-		carro.setPlaca(placaEntity);
-		carro = carroDAO.selectOne(carro);
-
-		try {
-			vendedor.setFuncional(Integer.parseInt(codigoVendedor.get()));
-		} catch (NumberFormatException e) {
-			System.err.println(e);
-		}
-		vendedor = vendedorDAO.selectOne(vendedor);
-		venda.setCarro(carro);
-		venda.setVendedor(vendedor);
+		int funcionalEntity = 0;
+		funcionalEntity = Integer.parseInt(codigoVendedor.get());
+		
+		Venda venda = VendaBuilder.builder()
+				.addPlaca(placaEntity)
+				.addFuncional(funcionalEntity)
+				.addDataVenda(LocalDate.now())
+				.get();
+		
+		venda.setCarro(carroDAO.selectOne(venda.getCarro()));
+		venda.setVendedor(vendedorDAO.selectOne(venda.getVendedor()));
 		return venda;
 	}
 
@@ -138,9 +126,7 @@ public class VendasCotroller implements IController<Venda> {
 	public void adicionar() throws SQLException {
 		Venda v = new Venda();
 		v = boundaryToEntity();
-		System.out.println(v.toString());
 		v.getCarro().setSituacao("V");
-		v.setData_venda(LocalDate.now());
 		vendaDAO.insert(v);
 		carroDAO.update(v.getCarro());
 	}
@@ -149,7 +135,6 @@ public class VendasCotroller implements IController<Venda> {
 		Venda v = new Venda();
 		v = boundaryToEntity();
 		descontoCoR.proximoDesconto(v);
-		System.out.println(v.getCarro().getValorFinal());
 		entityToBoundary(v);
 	}
 

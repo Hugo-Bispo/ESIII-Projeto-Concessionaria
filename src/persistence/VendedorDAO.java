@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
-
 import model.Vendedor;
+import model.VendedorBuilder;
 
 public class VendedorDAO implements IFuncoesDAO<Vendedor> {
 	private SessionFactory sf;
@@ -63,11 +63,12 @@ public class VendedorDAO implements IFuncoesDAO<Vendedor> {
 		List<Object[]> vendedorResultSet = query.getResultList();
 		List<Vendedor> vendedores = new ArrayList<Vendedor>();
 		for (Object[] o : vendedorResultSet) {
-			Vendedor vendedor = new Vendedor();
-			vendedor.setFuncional(Integer.parseInt(o[0].toString()));
-			vendedor.setNome((o[1].toString()));
-			vendedor.setTelefone((o[2].toString()));
-			vendedor.setCargo((o[3].toString()));
+			Vendedor vendedor = VendedorBuilder.builder()
+					.addFuncional(Integer.parseInt(o[0].toString()))
+					.addNome((o[1].toString()))
+					.addTelefone((o[2].toString()))
+					.addCargo((o[3].toString()))
+					.get();
 			vendedores.add(vendedor);
 		}
 

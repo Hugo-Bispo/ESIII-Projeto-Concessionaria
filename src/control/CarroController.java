@@ -2,10 +2,10 @@ package control;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-
 import org.hibernate.SessionFactory;
-import model.CarroCaracteristicas;
-import persistence.CarroCaracteristicasDAO;
+import model.Carro;
+import model.CarroBuilder;
+import persistence.CarroDAO;
 import util.HibernateUtil;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -14,7 +14,7 @@ import javafx.beans.property.StringProperty;
 
 public class CarroController {
 	SessionFactory sf = HibernateUtil.getSessionFactory();
-	CarroCaracteristicasDAO carroCaracDAO = new CarroCaracteristicasDAO(sf);
+	CarroDAO carroCaracDAO = new CarroDAO(sf);
 
 	private StringProperty placa = new SimpleStringProperty("");
 	private StringProperty valor = new SimpleStringProperty("");
@@ -29,9 +29,7 @@ public class CarroController {
 	private StringProperty combustivel = new SimpleStringProperty("");
 	private StringProperty cambio = new SimpleStringProperty("");
 	private StringProperty cor = new SimpleStringProperty("");
-
-	private String placaEntity;
-
+	
 	public StringProperty placaProperty() {
 		return placa;
 	}
@@ -84,81 +82,72 @@ public class CarroController {
 		return cor;
 	}
 
-	public CarroCaracteristicas boundaryToEntity() {
-
-		placaEntity = placa.get();
+	public Carro boundaryToEntity() {
+		Carro c = new Carro();
+		String placaEntity = placa.get();
+		int anoEntity = 0;
+		Double valorEntity = null;
+		LocalDate dataEntity = null;
+		Double quilometragemEntity = null;
+		Double cilindradaEntity = null;
+		
 		placaEntity = placaEntity.replace("-", "");
-		CarroCaracteristicas c = new CarroCaracteristicas();
-
-		if (placaEntity.length() == 7) {
-			c.setPlaca(placaEntity);
-		} else {
+		if(placaEntity.length() != 7) {
+			System.out.println("Placa Invalida");
+			placaEntity = null;
 		}
-
-		c.setValor(Double.parseDouble(valor.get()));
-//		c.setSituacao(situacao.get());
-		c.setData_cadastro(data_cadastro.get());
-		c.setModelo(modelo.get());
-		c.setVersao(versao.get());
-		c.setMarca(marca.get());
-
 		try {
-			c.setAno(Integer.parseInt(ano.get()));
-		} catch (NumberFormatException e) {
+			anoEntity = Integer.parseInt(ano.get());
+			valorEntity = Double.parseDouble(valor.get());
+			dataEntity = data_cadastro.get();
+			quilometragemEntity = Double.parseDouble(quilometragem.get());
+			cilindradaEntity = Double.parseDouble(cilindrada.get());
+			
+			c = CarroBuilder.builder()
+				.addPlaca(placaEntity)
+				.addValor(valorEntity)
+				.addSituacao("D")
+				.addDataCadastro(dataEntity)
+				.addCarroInformacao(modelo.get(), versao.get(), marca.get(), anoEntity)
+				.addQuilometragem(quilometragemEntity)
+				.addCaracteristicas(cilindradaEntity, combustivel.get(), cambio.get(), cor.get())
+				.get();
+		} catch (Exception e) {
+			System.err.println(e);
 		}
-
-		try {
-			c.setQuilometragem(Double.parseDouble(quilometragem.get()));
-		} catch (NumberFormatException e) {
-			c.setQuilometragem(null);
-		}
-
-		try {
-			c.setCilindrada(Double.parseDouble(cilindrada.get()));
-		} catch (NumberFormatException e) {
-			c.setCilindrada(null);
-		}
-		c.setCombustivel(combustivel.get().toString());
-		System.out.println(combustivel.get());
-		c.setCambio(cambio.get());
-		c.setCor(cor.get());
-
 		return c;
 	}
 
-	public void entityToBoundary(CarroCaracteristicas c) {
+	public void entityToBoundary(Carro c) {
 		if (c != null) {
 			placa.set(c.getPlaca());
 			valor.set(String.valueOf(c.getValor()));
-
 			if (c.getSituacao().contains("D")) {
 				situacao.set("Disponivel");
 			} else if (c.getSituacao().contains("V")) {
 				situacao.set("Vendido");
 			}
-
 			data_cadastro.set(c.getData_cadastro());
 			modelo.set(c.getModelo());
 			versao.set(c.getVersao());
 			marca.set(c.getMarca());
 			ano.set(String.valueOf(c.getAno()));
-			quilometragem.set(String.valueOf(c.getQuilometragem()));
-			cilindrada.set(String.valueOf(c.getCilindrada()));
-			combustivel.set(c.getCombustivel());
-			cambio.set(c.getCambio());
-			cor.set(c.getCor());
+			quilometragem.set(String.valueOf(c.getCarroCaracteristicas().getQuilometragem()));
+			cilindrada.set(String.valueOf(c.getCarroCaracteristicas().getCilindrada()));
+			combustivel.set(c.getCarroCaracteristicas().getCombustivel());
+			cambio.set(c.getCarroCaracteristicas().getCambio());
+			cor.set(c.getCarroCaracteristicas().getCor());
 		}
 	}
 
 	public void adicionar() throws SQLException {
-		CarroCaracteristicas c = new CarroCaracteristicas();
+		Carro c = new Carro();
 		c = boundaryToEntity();
-		c.setSituacao("D");
 		carroCaracDAO.insert(c);
 	}
 
 	public void pesquisar() throws SQLException {
-		CarroCaracteristicas c = new CarroCaracteristicas();
+		Carro c = new Carro();
 		c.setPlaca(placa.get());
 		c = carroCaracDAO.selectOne(c);
 		entityToBoundary(c);

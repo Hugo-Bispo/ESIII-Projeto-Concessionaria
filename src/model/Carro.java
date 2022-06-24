@@ -2,9 +2,12 @@ package model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -48,6 +51,11 @@ public class Carro {
 	@Column(name="data_cadastro")
 	@NotNull
 	private LocalDate data_cadastro;
+
+	@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name = "id_caracteristica")
+	@NotNull
+	private CarroCaracteristicas carroCaracteristicas;
 
 	public String getPlaca() {
 		return placa;
@@ -121,11 +129,19 @@ public class Carro {
 		this.data_cadastro = data_cadastro;
 	}
 
+	public CarroCaracteristicas getCarroCaracteristicas() {
+		return carroCaracteristicas;
+	}
+
+	public void setCarroCaracteristicas(CarroCaracteristicas carroCaracteristicas) {
+		this.carroCaracteristicas = carroCaracteristicas;
+	}
+
 	@Override
 	public String toString() {
 		return "Carro [placa=" + placa + ", modelo=" + modelo + ", versao=" + versao + ", marca=" + marca + ", ano="
 				+ ano + ", valor=" + valor + ", valorFinal=" + valorFinal + ", situacao=" + situacao
-				+ ", data_cadastro=" + data_cadastro + "]";
+				+ ", data_cadastro=" + data_cadastro + ", carroCaracteristicas=" + carroCaracteristicas + "]";
 	}
 	
 	
