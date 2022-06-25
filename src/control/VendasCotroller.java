@@ -15,7 +15,7 @@ import persistence.VendedorDAO;
 import util.HibernateUtil;
 import javafx.beans.property.*;
 
-public class VendasCotroller implements IController<Venda> {
+public class VendasCotroller{
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	CarroDAO carroDAO = new CarroDAO(sf);
 	VendaDAO vendaDAO = new VendaDAO(sf);
@@ -83,7 +83,6 @@ public class VendasCotroller implements IController<Venda> {
 		return valorFinalCarro;
 	}
 
-	@Override
 	public Venda boundaryToEntity() throws SQLException {
 		placaEntity = placaCarro.get();
 		placaEntity = placaEntity.replace("-", "");
@@ -101,7 +100,6 @@ public class VendasCotroller implements IController<Venda> {
 		return venda;
 	}
 
-	@Override
 	public void entityToBoundary(Venda v) {
 		if (v != null) {
 			nomeVendedor.set(v.getVendedor().getNome());
@@ -122,7 +120,6 @@ public class VendasCotroller implements IController<Venda> {
 
 	}
 
-	@Override
 	public void adicionar() throws SQLException {
 		Venda v = new Venda();
 		v = boundaryToEntity();
@@ -138,11 +135,9 @@ public class VendasCotroller implements IController<Venda> {
 		entityToBoundary(v);
 	}
 
-	@Override
 	public void pesquisar() throws SQLException {
 		Venda v = new Venda();
 		v = boundaryToEntity();
 		entityToBoundary(v);
 	}
-
 }

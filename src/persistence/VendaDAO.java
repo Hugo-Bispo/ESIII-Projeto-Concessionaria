@@ -61,8 +61,8 @@ public class VendaDAO implements IFuncoesDAO<Venda> {
 		StringBuffer sql = new StringBuffer();
 		sql.append(
 				"SELECT vendedor.nome, vendedor.cargo, carro.placa, carro.modelo, carro.versao, carro.marca, carro.ano, carro.valor, carro.valorFinal, venda.data_venda FROM venda"
-						+ "INNER JOIN vendedor ON vendedor.funcional = venda.funcional\r\n"
-						+ "INNER JOIN carro ON carro.placa = venda.placa;");
+						+ " INNER JOIN vendedor ON vendedor.funcional = venda.funcional"
+						+ " INNER JOIN carro ON carro.placa = venda.placa;");
 		EntityManager entityManager = sf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> vendedorResultSet = query.getResultList();

@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Carro;
+import model.CarroCaracteristicas;
 import persistence.CarroDAO;
 import util.HibernateUtil;
 
@@ -27,7 +28,6 @@ public class TablesController {
 
 	@SuppressWarnings("unchecked")
 	public TablesController() {
-
 		carroLista.addAll(carroDAO.selectAll());
 		System.out.println(carroLista.toString());
 

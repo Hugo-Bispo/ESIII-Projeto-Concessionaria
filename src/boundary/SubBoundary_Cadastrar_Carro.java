@@ -30,6 +30,9 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 	control.CarroController control_carro = new CarroController();
 
 	private Button btnCriar = new Button("Cadastrar");
+	private Button btnAtualizar = new Button("Atualizar");
+	private Button btnExcluir = new Button("Excluir");
+	private Button btnPesquisar = new Button("Pesquisar");
 	
 	private TextField txtPlaca = new TextField();
 	private TextField txtValor = new TextField();
@@ -54,8 +57,8 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 
 //		TilePane Titulo e Button Cadastrar Carro
 		TilePane index_pane = new TilePane();
-		index_pane.getChildren().addAll(new Label("Cadastro de Veiculo"), btnCriar);
-		index_pane.setHgap(100);
+		index_pane.getChildren().addAll(new Label("Cadastro de Veiculo"), btnPesquisar, btnCriar, btnAtualizar, btnExcluir);
+		index_pane.setHgap(25);
 		index_pane.setAlignment(Pos.CENTER);
 		index_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
 	
@@ -114,6 +117,38 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 				e1.printStackTrace();
 			}
 		});
+		
+//		Button Atualizar Carro
+		btnAtualizar.setOnAction( e -> {
+			try {
+				control_carro.atualizar();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+//		Button Excluir Carro
+		btnExcluir.setOnAction( e -> {
+			try {
+				control_carro.excluir();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+//		Button Pesquisar Carro
+		btnPesquisar.setOnAction( e -> {
+			try {
+				control_carro.pesquisar();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		
 		btnCriar.setStyle("-fx-font: 24 arial;-fx-font-weight: bold;");
 		btnCriar.setAlignment(Pos.BOTTOM_RIGHT);
 		

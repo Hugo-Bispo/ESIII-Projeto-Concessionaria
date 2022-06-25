@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class CarroController {
+public class CarroController implements IController<Carro>{
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	CarroDAO carroCaracDAO = new CarroDAO(sf);
 
@@ -137,6 +137,20 @@ public class CarroController {
 			combustivel.set(c.getCarroCaracteristicas().getCombustivel());
 			cambio.set(c.getCarroCaracteristicas().getCambio());
 			cor.set(c.getCarroCaracteristicas().getCor());
+		}else {
+			placa.set("");
+			valor.set("");
+			data_cadastro.set(LocalDate.parse("0000-00-00"));
+			modelo.set("");
+			versao.set("");
+			marca.set("");
+			ano.set("");
+			quilometragem.set("");
+			cilindrada.set("");
+			combustivel.set("");
+			cambio.set("");
+			cor.set("");
+			
 		}
 	}
 
@@ -152,4 +166,34 @@ public class CarroController {
 		c = carroCaracDAO.selectOne(c);
 		entityToBoundary(c);
 	}
+
+	@Override
+	public void excluir() throws SQLException {
+		Carro c = new Carro();
+		c = boundaryToEntity();
+		c = carroCaracDAO.selectOne(c);
+		if(c.getSituacao().equals("D")) {
+			carroCaracDAO.delete(c);
+			entityToBoundary(null);
+		}else {
+			System.out.println("Não é possivel apagar o Carro");
+		}
+
+	}
+
+	@Override
+	public void atualizar() throws SQLException {
+		Carro c = new Carro();
+		c = boundaryToEntity();
+		c = carroCaracDAO.selectOne(c);
+		
+		Carro cUpdate = new Carro();
+		cUpdate = boundaryToEntity();
+		cUpdate.setCarroCaracteristicas(c.getCarroCaracteristicas());
+		carroCaracDAO.update(cUpdate);
+		c = carroCaracDAO.selectOne(cUpdate);
+		entityToBoundary(cUpdate);
+	}
+	
+	
 }

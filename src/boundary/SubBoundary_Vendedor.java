@@ -22,12 +22,15 @@ public class SubBoundary_Vendedor extends Application {
 	VendedorController controlVendedor = new VendedorController();
 	VendasCotroller controlVenda = new VendasCotroller();
 
-	private Button btnCriar = new Button("Criar");
+	private Button btnCriar = new Button("Cadastrar");
+	private Button btnAtualizar = new Button("Atualizar");
+	private Button btnExcluir = new Button("Excluir");
+	private Button btnPesquisar = new Button("Pesquisar");
+	
 	private TextField txtFuncionalVendedor = new TextField();
 	private TextField txtNome = new TextField();
 	private TextField txtTelefone = new TextField();
 	private ComboBox<String> boxCargo = new ComboBox<String>(FXCollections.observableArrayList("Vendedor", "Gerente"));
-	private Button btnPesquisar = new Button("Pesquisar");
 
 	public void start(Stage stage) throws Exception {
 		BorderPane tela_pane = new BorderPane();
@@ -45,6 +48,8 @@ public class SubBoundary_Vendedor extends Application {
 		vendedor_pane.add(boxCargo, 1, 4);
 		vendedor_pane.add(btnCriar, 0, 5);
 		vendedor_pane.add(btnPesquisar, 1, 5);
+		vendedor_pane.add(btnExcluir, 0, 6);
+		vendedor_pane.add(btnAtualizar, 1, 6);
 		vendedor_pane.setHgap(5);
 		vendedor_pane.setVgap(10);
 		vendedor_pane.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
@@ -64,6 +69,7 @@ public class SubBoundary_Vendedor extends Application {
 				e1.printStackTrace();
 			}
 		});
+		
 		btnPesquisar.setOnAction(e -> {
 			try {
 				controlVendedor.pesquisar();
@@ -72,6 +78,22 @@ public class SubBoundary_Vendedor extends Application {
 			}
 		});
 
+		btnAtualizar.setOnAction(e -> {
+			try {
+				controlVendedor.atualizar();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+		btnExcluir.setOnAction(e -> {
+			try {
+				controlVendedor.excluir();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
 		Scene snc = new Scene(tela_pane, 500, 400);
 
 		stage.setTitle("Cadastro de Vendedor");

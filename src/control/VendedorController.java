@@ -1,11 +1,13 @@
 package control;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
-
+import model.Venda;
 import model.Vendedor;
 import model.VendedorBuilder;
+import persistence.VendaDAO;
 import persistence.VendedorDAO;
 import util.HibernateUtil;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,7 +15,8 @@ import javafx.beans.property.StringProperty;
 
 public class VendedorController implements IController<Vendedor> {
 	SessionFactory sf = HibernateUtil.getSessionFactory();
-	VendedorDAO dao = new VendedorDAO(sf);
+	VendedorDAO vendededorDAO = new VendedorDAO(sf);
+	VendaDAO vendaDAO = new VendaDAO(sf);
 
 	private StringProperty funcional = new SimpleStringProperty("");
 	private StringProperty nome = new SimpleStringProperty("");
@@ -42,11 +45,8 @@ public class VendedorController implements IController<Vendedor> {
 
 		try {
 			funcionalVendedor = Integer.parseInt(funcional.get());
-			v = VendedorBuilder.builder()
-				.addFuncional(funcionalVendedor)
-				.addTelefone(telefone.get())
-				.addCargo(cargo.get())
-				.addNome(nome.get()).get();
+			v = VendedorBuilder.builder().addFuncional(funcionalVendedor).addTelefone(telefone.get())
+					.addCargo(cargo.get()).addNome(nome.get()).get();
 		} catch (Exception e) {
 			System.err.println(e);
 		}
@@ -65,14 +65,44 @@ public class VendedorController implements IController<Vendedor> {
 	public void adicionar() throws SQLException {
 		Vendedor v = new Vendedor();
 		v = boundaryToEntity();
-		dao.insert(v);
+		vendededorDAO.insert(v);
 
 	}
 
 	public void pesquisar() throws SQLException {
 		Vendedor v = new Vendedor();
 		v = boundaryToEntity();
-		v = dao.selectOne(v);
+		v = vendededorDAO.selectOne(v);
+		entityToBoundary(v);
+	}
+
+	@Override
+	public void excluir() throws SQLException {
+		List<Venda> vendas = vendaDAO.selectAll();
+		boolean booleanExcluir = false;
+		Vendedor v = new Vendedor();
+		v = boundaryToEntity();
+		v = vendededorDAO.selectOne(v);
+		for (Venda venda : vendas) {
+			if (venda.getVendedor().getFuncional() == v.getFuncional()) {
+				booleanExcluir = true;
+			}
+
+		}
+		if (booleanExcluir != true) {
+			vendededorDAO.delete(v);
+		} else {
+			System.out.println("Vendedor vendas");
+		}
+
+	}
+
+	@Override
+	public void atualizar() throws SQLException {
+		Vendedor v = new Vendedor();
+		v = boundaryToEntity();
+		vendededorDAO.update(v);
+		v = vendededorDAO.selectOne(v);
 		entityToBoundary(v);
 	}
 
