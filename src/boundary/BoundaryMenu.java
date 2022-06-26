@@ -61,6 +61,7 @@ public class BoundaryMenu extends Application {
 		btnCadastrarCarro.setOnAction(e -> cadastrarCarro());
 		btnCadastrarVenda.setOnAction(e -> cadastrarVenda());
 		btnCadastrarFuncionario.setOnAction(e -> cadastrarFuncionario());
+		btnCadastrarCliente.setOnAction(e -> cadastrarCliente());
 		btnGerarTableVendas.setOnAction(e -> gerarTableVendas());
 		btnGerarTableCarros.setOnAction(e -> gerarTableCarros());
 		btnGerarTableClientes.setOnAction(e -> gerarTableClientes());
@@ -99,6 +100,15 @@ public class BoundaryMenu extends Application {
 		SubBoundaryCadastrarFuncionario funcionarioCadastrar = new SubBoundaryCadastrarFuncionario();
 		try {
 			funcionarioCadastrar.start(new Stage());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void cadastrarCliente() {
+		SubBoundaryCadastrarCliente clienteCadastrar = new SubBoundaryCadastrarCliente();
+		try {
+			clienteCadastrar.start(new Stage());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
