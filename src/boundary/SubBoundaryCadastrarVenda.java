@@ -33,7 +33,11 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 	private TextField txtFuncionalVendas = new TextField();
 	private TextField txtPlaca = new TextField();
-	private Button btnPesquisar = new Button("Pesquisar");
+	private TextField txtClienteCPF = new TextField();
+	
+	private Button btnPesquisarCarro = new Button("Pesquisar");
+	private Button btnPesquisarVendedor = new Button("Pesquisar");
+	private Button btnPesquisarCliente = new Button("Pesquisar");
 
 	private Text textNomeVendedor = new Text();
 	private Text textTelefoneVendedor = new Text();
@@ -45,6 +49,11 @@ public class SubBoundaryCadastrarVenda extends Application{
 	private Text textValor = new Text();
 	private Text textDesconto = new Text();
 	private Text textValorFinal = new Text();
+	
+	private Text textNomeCliente = new Text();
+	private Text textTelefoneCliente = new Text();
+	private Text textCpfCliente = new Text();
+
 
 	public void start(Stage stage) throws Exception {
 
@@ -65,9 +74,17 @@ public class SubBoundaryCadastrarVenda extends Application{
 		GridPane pesquisa_pane = new GridPane();
 		pesquisa_pane.add(TextStyle("Codº Vendedor:"), 0, 0);
 		pesquisa_pane.add(txtFuncionalVendas, 1, 0);
-		pesquisa_pane.add(TextStyle("Placa Carro:"), 2, 0);
-		pesquisa_pane.add(txtPlaca, 3, 0);
-		pesquisa_pane.add(btnPesquisar, 4, 0);
+		pesquisa_pane.add(btnPesquisarVendedor, 2, 0);
+		
+		pesquisa_pane.add(TextStyle("Placa Carro:"), 0, 1);
+		pesquisa_pane.add(txtPlaca, 1, 1);
+		pesquisa_pane.add(btnPesquisarCarro, 2, 1);
+		
+		pesquisa_pane.add(TextStyle("CPF Cliente:"), 0, 2);
+		pesquisa_pane.add(txtClienteCPF, 1, 2);
+		pesquisa_pane.add(btnPesquisarCliente, 2, 2);
+		
+		
 		pesquisa_pane.setHgap(5);
 		pesquisa_pane.setVgap(10);
 		pesquisa_pane.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
@@ -75,7 +92,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.codigoVendedorProperty());
 		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaCarroProperty());
 
-		btnPesquisar.setOnAction(e -> {
+		btnPesquisarCarro.setOnAction(e -> {
 			try {
 				controlVenda.pesquisar();
 			} catch (SQLException e2) {
@@ -105,13 +122,25 @@ public class SubBoundaryCadastrarVenda extends Application{
 		carro_pane.add(TextStyle("Valor Final: ", textValorFinal), 2, 1);
 		carro_pane.setHgap(5);
 		carro_pane.setVgap(1);
-
+		
 		Bindings.bindBidirectional(textModelo.textProperty(), controlVenda.modeloCarroProperty());
 		Bindings.bindBidirectional(textVersao.textProperty(), controlVenda.versaoCarroProperty());
 		Bindings.bindBidirectional(textMarca.textProperty(), controlVenda.marcaCarroProperty());
 		Bindings.bindBidirectional(textValor.textProperty(), controlVenda.valorCarroProperty());
 		Bindings.bindBidirectional(textDesconto.textProperty(), controlVenda.valorDescontoCarroProperty());
 		Bindings.bindBidirectional(textValorFinal.textProperty(), controlVenda.valorFinalCarroProperty());
+		
+//		Gridpane Informacao Cliente
+		GridPane cliente_pane = new GridPane();
+		cliente_pane.add(TextStyle("Nome: ", textNomeCliente), 0, 0);
+		cliente_pane.add(TextStyle("Telefone: ", textTelefoneCliente), 1, 0);
+		cliente_pane.add(TextStyle("CPF: ", textCpfCliente), 2, 0);
+		cliente_pane.setHgap(5);
+
+		Bindings.bindBidirectional(textNomeVendedor.textProperty(), controlVenda.nomeVendedorProperty());
+		Bindings.bindBidirectional(textTelefoneVendedor.textProperty(), controlVenda.telefoneVendedorProperty());
+		Bindings.bindBidirectional(textCargo.textProperty(), controlVenda.cargoVendedorProperty());
+
 
 //		TilePane Botoes Vender e Desconto
 		TilePane descontoVender_pane = new TilePane();
@@ -147,7 +176,9 @@ public class SubBoundaryCadastrarVenda extends Application{
 		informacaoVenda_pane.add(vendedor_pane, 0, 3);
 		informacaoVenda_pane.add(TextStyle("Carro"), 0, 4);
 		informacaoVenda_pane.add(carro_pane, 0, 5);
-		informacaoVenda_pane.add(descontoVender_pane, 0, 6);
+		informacaoVenda_pane.add(TextStyle("Cliente"), 0, 6);
+		informacaoVenda_pane.add(cliente_pane, 0, 7);
+		informacaoVenda_pane.add(descontoVender_pane, 0, 8);
 		informacaoVenda_pane.setAlignment(Pos.CENTER);
 		informacaoVenda_pane.setHgap(5);
 		informacaoVenda_pane.setVgap(10);
