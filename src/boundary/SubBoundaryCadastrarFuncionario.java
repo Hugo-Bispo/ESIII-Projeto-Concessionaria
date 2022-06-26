@@ -13,12 +13,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SubBoundary_Vendedor extends Application {
+public class SubBoundaryCadastrarFuncionario extends Application{
 	VendedorController controlVendedor = new VendedorController();
 	VendasCotroller controlVenda = new VendasCotroller();
 
@@ -33,6 +39,11 @@ public class SubBoundary_Vendedor extends Application {
 	private ComboBox<String> boxCargo = new ComboBox<String>(FXCollections.observableArrayList("Vendedor", "Gerente"));
 
 	public void start(Stage stage) throws Exception {
+		
+		BackgroundImage background = new BackgroundImage(new Image(getClass().getResourceAsStream("backgound.jpg")),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+				BackgroundSize.DEFAULT);
+		
 		BorderPane tela_pane = new BorderPane();
 
 //		Gridpane para Cadastrar Vendedor
@@ -56,6 +67,7 @@ public class SubBoundary_Vendedor extends Application {
 		vendedor_pane.setAlignment(Pos.CENTER);
 
 		tela_pane.setCenter(vendedor_pane);
+		tela_pane.setBackground(new Background(background));
 
 		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), controlVendedor.funcionalProperty());
 		Bindings.bindBidirectional(txtNome.textProperty(), controlVendedor.nomeProperty());
@@ -94,12 +106,10 @@ public class SubBoundary_Vendedor extends Application {
 			}
 		});
 		
-		Scene snc = new Scene(tela_pane, 500, 400);
-
-		stage.setTitle("Cadastro de Vendedor");
+		Scene snc = new Scene(tela_pane, 720, 480);
+		stage.setTitle("Pesquisar Funcionario");
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
-
 	}
 }

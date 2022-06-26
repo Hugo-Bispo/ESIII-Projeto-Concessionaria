@@ -23,12 +23,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class Boundary_Carro extends Application {
+public class SubBoundaryPesquisarCarro extends Application{
 	control.CarroController control_carro = new CarroController();
 
 	private TextField txtPlaca = new TextField();
 	private Button btnPesquisar = new Button("Pesquisar");
-	private Button btnCriar = new Button("Criar");
 
 	private Text textTitulo = new Text("Controle de Veiculos");
 	private Text textValor = new Text();
@@ -52,20 +51,18 @@ public class Boundary_Carro extends Application {
 //		GridPane Pesquisar - Criar Carro		
 		GridPane pane_pesquisar = new GridPane();
 		Text Text_Placa = new Text("Placa do Carro:");
-		Text_Placa.setFill(Color.BLACK);
+		Text_Placa.setFill(Color.WHITE);
 
 		pane_pesquisar.add(Text_Placa, 0, 0);
 		pane_pesquisar.add(txtPlaca, 2, 0);
 		pane_pesquisar.add(btnPesquisar, 3, 0);
-		pane_pesquisar.add(btnCriar, 4, 0);
 		pane_pesquisar.setHgap(5);
 		pane_pesquisar.setMinSize(200, 200);
 		pane_pesquisar.setAlignment(Pos.CENTER);
-		pane_pesquisar.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
+		pane_pesquisar.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
 
 		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
 
-		btnCriar.setOnAction(e -> cadastrar_carro());
 		btnPesquisar.setOnAction(e -> {
 			try {
 				control_carro.pesquisar();
@@ -126,10 +123,10 @@ public class Boundary_Carro extends Application {
 		pane_info_carro.add(paneCor, 2, 3);
 		pane_info_carro.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
 		pane_info_carro.setHgap(100);
-		pane_info_carro.setVgap(20);
+		pane_info_carro.setVgap(5);
 
-		pane_info_carro.setMinSize(1100, 500);
-		pane_info_carro.setMaxSize(1100, 500);
+		pane_info_carro.setMinSize(1100, 400);
+		pane_info_carro.setMaxSize(1100, 400);
 		pane_info_carro.setAlignment(Pos.CENTER);
 
 		Bindings.bindBidirectional(textModelo.textProperty(), control_carro.modeloProperty());
@@ -154,7 +151,7 @@ public class Boundary_Carro extends Application {
 		border_pane.setBackground(new Background(background));
 		Scene snc = new Scene(border_pane, 1280, 720);
 
-		stage.setTitle("Controle de Veiculos");
+		stage.setTitle("Pesquisar Carro");
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
@@ -176,18 +173,4 @@ public class Boundary_Carro extends Application {
 
 		return paneStyle;
 	}
-
-	public void cadastrar_carro() {
-		SubBoundary_Cadastrar_Carro carro = new SubBoundary_Cadastrar_Carro();
-		try {
-			carro.start(new Stage());
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
-		Application.launch(Boundary_Carro.class, args);
-	}
-
 }

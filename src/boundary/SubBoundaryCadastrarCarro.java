@@ -26,14 +26,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SubBoundary_Cadastrar_Carro extends Application {
+public class SubBoundaryCadastrarCarro extends Application{
 	control.CarroController control_carro = new CarroController();
 
 	private Button btnCriar = new Button("Cadastrar");
 	private Button btnAtualizar = new Button("Atualizar");
 	private Button btnExcluir = new Button("Excluir");
 	private Button btnPesquisar = new Button("Pesquisar");
-	
+
 	private TextField txtPlaca = new TextField();
 	private TextField txtValor = new TextField();
 	private DatePicker calendarDataCadastro = new DatePicker();
@@ -42,13 +42,14 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 	private TextField txtMarca = new TextField();
 	private TextField txtAno = new TextField();
 	private TextField txtQuilometragem = new TextField();
-	private ComboBox<String> boxCombustivel = new ComboBox<String>(FXCollections.observableArrayList("Gasolina", "Etanol", "Flex", "GNV"));
+	private ComboBox<String> boxCombustivel = new ComboBox<String>(
+			FXCollections.observableArrayList("Gasolina", "Etanol", "Flex", "GNV"));
 	private TextField txtCilindrada = new TextField();
-	private ComboBox<String> boxCambio = new ComboBox<String>(FXCollections.observableArrayList("Manual", "Automatico", "Automatizado"));
+	private ComboBox<String> boxCambio = new ComboBox<String>(
+			FXCollections.observableArrayList("Manual", "Automatico", "Automatizado"));
 	private TextField txtCor = new TextField();
 
 	public void start(Stage stage) throws Exception {
-		
 		BackgroundImage background = new BackgroundImage(new Image(getClass().getResourceAsStream("backgound.jpg")),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
 				BackgroundSize.DEFAULT);
@@ -57,15 +58,15 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 
 //		TilePane Titulo e Button Cadastrar Carro
 		TilePane index_pane = new TilePane();
-		index_pane.getChildren().addAll(new Label("Cadastro de Veiculo"), btnPesquisar, btnCriar, btnAtualizar, btnExcluir);
-		index_pane.setHgap(25);
+		index_pane.getChildren().addAll(new Label("Cadastro de Veiculo"), btnPesquisar, btnCriar, btnAtualizar,
+				btnExcluir);
+		index_pane.setHgap(20);
 		index_pane.setAlignment(Pos.CENTER);
 		index_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
-	
 
 //		GridPane Informacao do Carro
 		GridPane pane_info_carro = new GridPane();
-		
+
 		pane_info_carro.add(TextStyle("Placa: "), 0, 0);
 		pane_info_carro.add(txtPlaca, 1, 0);
 		pane_info_carro.add(TextStyle("Valor: "), 2, 0);
@@ -94,7 +95,7 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 		pane_info_carro.setHgap(5);
 		pane_info_carro.setVgap(20);
 		pane_info_carro.setAlignment(Pos.CENTER);
-		
+
 		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
 		Bindings.bindBidirectional(txtValor.textProperty(), control_carro.valorProperty());
 		Bindings.bindBidirectional(calendarDataCadastro.valueProperty(), control_carro.data_cadastroProperty());
@@ -107,9 +108,9 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 		Bindings.bindBidirectional(boxCombustivel.valueProperty(), control_carro.combustivelProperty());
 		Bindings.bindBidirectional(boxCambio.valueProperty(), control_carro.cambioProperty());
 		Bindings.bindBidirectional(txtCor.textProperty(), control_carro.corProperty());
-		
+
 //		Button Criar Carro
-		btnCriar.setOnAction( e -> {
+		btnCriar.setOnAction(e -> {
 			try {
 				control_carro.adicionar();
 			} catch (SQLException e1) {
@@ -117,9 +118,9 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 				e1.printStackTrace();
 			}
 		});
-		
+
 //		Button Atualizar Carro
-		btnAtualizar.setOnAction( e -> {
+		btnAtualizar.setOnAction(e -> {
 			try {
 				control_carro.atualizar();
 			} catch (SQLException e1) {
@@ -127,9 +128,9 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 				e1.printStackTrace();
 			}
 		});
-		
+
 //		Button Excluir Carro
-		btnExcluir.setOnAction( e -> {
+		btnExcluir.setOnAction(e -> {
 			try {
 				control_carro.excluir();
 			} catch (SQLException e1) {
@@ -137,9 +138,9 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 				e1.printStackTrace();
 			}
 		});
-		
+
 //		Button Pesquisar Carro
-		btnPesquisar.setOnAction( e -> {
+		btnPesquisar.setOnAction(e -> {
 			try {
 				control_carro.pesquisar();
 			} catch (SQLException e1) {
@@ -147,23 +148,21 @@ public class SubBoundary_Cadastrar_Carro extends Application {
 				e1.printStackTrace();
 			}
 		});
-		
-		
+
 		btnCriar.setStyle("-fx-font: 24 arial;-fx-font-weight: bold;");
 		btnCriar.setAlignment(Pos.BOTTOM_RIGHT);
-		
-		
+
 		border_pane.setTop(index_pane);
 		border_pane.setCenter(pane_info_carro);
 		border_pane.setBackground(new Background(background));
-		
-		Scene snc = new Scene(border_pane, 1280, 400);
-		
-		stage.setTitle("Cadastro de Veiculos");
+
+		Scene snc = new Scene(border_pane, 1280, 500);
+		stage.setTitle("Controle de Veiculos");
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
 	}
+
 	
 	public Text TextStyle(String texto) {
 		Text text = new Text(texto);

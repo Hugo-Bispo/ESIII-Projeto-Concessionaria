@@ -23,13 +23,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Boundary_Vendas extends Application {
+public class SubBoundaryCadastrarVenda extends Application{
 	VendedorController controlVendedor = new VendedorController();
 
 	VendasCotroller controlVenda = new VendasCotroller();
 
-	private Button btnNovoFuncionario = new Button("Criar Funcionario");
-	private Button btnTables = new Button("Tabelas");
 	private Button btnVender = new Button("Vender");
 	private Button btnProcurarDesconto = new Button("Desconto");
 
@@ -58,13 +56,10 @@ public class Boundary_Vendas extends Application {
 
 //		TilePane Titulo e Button Cadastrar Cliente
 		TilePane index_pane = new TilePane();
-		index_pane.getChildren().addAll(TextStyle("Cadastro de Vendas"), btnNovoFuncionario, btnTables);
+		index_pane.getChildren().addAll(TextStyle("Cadastro de Vendas"));
 		index_pane.setHgap(100);
 		index_pane.setAlignment(Pos.CENTER);
 		index_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
-
-		btnNovoFuncionario.setOnAction(e -> cadastrar_vendedor());
-		btnTables.setOnAction(e -> exibir_tables());
 
 //		Gridpane para Pesquisar Informacao
 		GridPane pesquisa_pane = new GridPane();
@@ -164,35 +159,13 @@ public class Boundary_Vendas extends Application {
 		border_pane.setCenter(informacaoVenda_pane);
 		border_pane.setBackground(new Background(background));
 
-		Scene snc = new Scene(border_pane, 1280, 720);
-
+		Scene snc = new Scene(border_pane, 1280, 500);
 		stage.setTitle("Controle de Vendas");
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
-
-	}
-
-	public void cadastrar_vendedor() {
-		SubBoundary_Vendedor vendedor = new SubBoundary_Vendedor();
-		try {
-			vendedor.start(new Stage());
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-
 	}
 	
-	public void exibir_tables() {
-		SubBoundaryTables tables = new SubBoundaryTables();
-		try {
-			tables.start(new Stage());
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-
-	}
-
 	public GridPane GridStyle(GridPane grid) {
 		GridPane paneStyle = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -226,9 +199,4 @@ public class Boundary_Vendas extends Application {
 
 		return paneStyle;
 	}
-
-	public static void main(String[] args) {
-		Application.launch(Boundary_Vendas.class, args);
-	}
-
 }
