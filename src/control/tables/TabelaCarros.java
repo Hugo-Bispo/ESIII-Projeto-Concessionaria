@@ -1,5 +1,7 @@
 package control.tables;
 
+import org.hibernate.SessionFactory;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -8,18 +10,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Carro;
+import persistence.CarroDAO;
+import util.HibernateUtil;
 
-public class TabelaCarro {
+public class TabelaCarros implements ITableStrategy<Carro>{
+	SessionFactory sf = HibernateUtil.getSessionFactory();
+	CarroDAO carroDAO = new CarroDAO(sf);
+	
 	private TableView<Carro> tableCarro = new TableView<>();
-	private StringProperty boxTypePesquisa = new SimpleStringProperty("");
 	ObservableList<Carro> carroLista = FXCollections.observableArrayList();
 
-	public StringProperty boxTypePesquisaProperty() {
-		return boxTypePesquisa;
-	}
-
 	@SuppressWarnings("unchecked")
-	public TabelaCarro() {
+	public TabelaCarros() {
+		carroLista.addAll(carroDAO.selectAll());
 		TableColumn<Carro, Integer> col1 = new TableColumn<>("Placa Carro");
 		col1.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
@@ -33,10 +36,10 @@ public class TabelaCarro {
 		col4.setCellValueFactory(new PropertyValueFactory<>("valor"));
 
 		TableColumn<Carro, String> col5 = new TableColumn<>("Disponibilidade");
-		col5.setCellValueFactory(new PropertyValueFactory<>("disponibilidade"));
+		col5.setCellValueFactory(new PropertyValueFactory<>("situacao"));
 
 		TableColumn<Carro, String> col6 = new TableColumn<>("Data Cadastro");
-		col6.setCellValueFactory(new PropertyValueFactory<>("data cadastro"));
+		col6.setCellValueFactory(new PropertyValueFactory<>("data_cadastro"));
 
 		TableColumn<Carro, String> col7 = new TableColumn<>("Ano");
 		col7.setCellValueFactory(new PropertyValueFactory<>("ano"));
@@ -45,8 +48,7 @@ public class TabelaCarro {
 		
 		tableCarro.setItems(carroLista);
 		
-		tableCarro.setMinSize(1000, 500);
-		tableCarro.setMaxSize(1000, 500);
+		tableCarro.setStyle("-fx-font: 14 arial");
 	}
 
 	public TableView<Carro> getTable() {

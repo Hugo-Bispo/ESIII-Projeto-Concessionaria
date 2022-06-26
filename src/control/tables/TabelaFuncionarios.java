@@ -1,25 +1,28 @@
 package control.tables;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import org.hibernate.SessionFactory;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Vendedor;
+import persistence.VendedorDAO;
+import util.HibernateUtil;
 
-public class TabelaFuncionarios {
-	private TableView<Vendedor> tableVendedor = new TableView<>();
-	private StringProperty boxTypePesquisa = new SimpleStringProperty("");
+public class TabelaFuncionarios implements ITableStrategy<Vendedor>{
+	SessionFactory sf = HibernateUtil.getSessionFactory();
+	VendedorDAO vendedeorDAO = new VendedorDAO(sf);
+	
 	ObservableList<Vendedor> vendedorLista = FXCollections.observableArrayList();
-
-	public StringProperty boxTypePesquisaProperty() {
-		return boxTypePesquisa;
-	}
+	
+	private TableView<Vendedor> tableVendedor = new TableView<>();
 
 	@SuppressWarnings("unchecked")
 	public TabelaFuncionarios() {
+		vendedorLista.addAll(vendedeorDAO.selectAll());
+		
 		TableColumn<Vendedor, Integer> col1 = new TableColumn<>("Cod ºVendedor");
 		col1.setCellValueFactory(new PropertyValueFactory<>("funcional"));
 
@@ -36,8 +39,7 @@ public class TabelaFuncionarios {
 		
 		tableVendedor.setItems(vendedorLista);
 		
-		tableVendedor.setMinSize(1000, 500);
-		tableVendedor.setMaxSize(1000, 500);
+		tableVendedor.setStyle("-fx-font: 14 arial");
 	}
 
 	public TableView<Vendedor> getTable() {

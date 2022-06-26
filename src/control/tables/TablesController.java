@@ -1,4 +1,4 @@
-package control;
+package control.tables;
 
 import org.hibernate.SessionFactory;
 
