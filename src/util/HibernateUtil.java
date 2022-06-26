@@ -10,6 +10,8 @@ import org.hibernate.service.ServiceRegistry;
 
 import model.Carro;
 import model.CarroCaracteristicas;
+import model.Cliente;
+import model.ClienteEndereco;
 import model.Venda;
 import model.Vendedor;
 
@@ -35,6 +37,8 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(CarroCaracteristicas.class);
 				configuration.addAnnotatedClass(Vendedor.class);
 				configuration.addAnnotatedClass(Venda.class);
+				configuration.addAnnotatedClass(Cliente.class);
+				configuration.addAnnotatedClass(ClienteEndereco.class);
 				
 				ServiceRegistry registry = new StandardServiceRegistryBuilder()
 											.applySettings(configuration.getProperties())

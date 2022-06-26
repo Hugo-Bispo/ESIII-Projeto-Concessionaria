@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class VendaBuilder {
 	Venda venda;
 	Carro carro;
+	Cliente cliente;
 	Vendedor vendedor;
 
 	public VendaBuilder() {
@@ -55,24 +56,40 @@ public class VendaBuilder {
 		return this;
 	}
 
-	public VendaBuilder addNome(String nome) {
+	public VendaBuilder addNomeFuncionario(String nome) {
 		this.vendedor.setNome(nome);
 		return this;
 	}
 
-	public VendaBuilder addTelefone(String telefone) {
+	public VendaBuilder addTelefoneFuncionario(String telefone) {
 		this.vendedor.setTelefone(telefone);
 		return this;
 	}
 
-	public VendaBuilder addCargo(String cargo) {
+	public VendaBuilder addCargoFuncionario(String cargo) {
 		this.vendedor.setCargo(cargo);
+		return this;
+	}
+	
+	public VendaBuilder addNomeCliente(String nome) {
+		this.cliente.setNome(nome);
+		return this;
+	}
+	
+	public VendaBuilder addCPFCliente(String cpf) {
+		this.cliente.setCPF(cpf);
+		return this;
+	}
+	
+	public VendaBuilder addTelefone(String telefone) {
+		this.cliente.setTelefone(telefone);
 		return this;
 	}
 
 	public Venda get() {
 		this.venda.setCarro(carro);
 		this.venda.setVendedor(vendedor);
+		this.venda.setCliente(cliente);
 		return this.venda;
 	}
 

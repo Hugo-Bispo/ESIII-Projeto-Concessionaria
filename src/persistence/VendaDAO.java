@@ -69,8 +69,8 @@ public class VendaDAO implements IFuncoesDAO<Venda> {
 		List<Venda> vendas = new ArrayList<Venda>();
 		for (Object[] o : vendedorResultSet) {
 			Venda venda = VendaBuilder.builder()
-					.addNome(o[0].toString())
-					.addCargo(o[1].toString())
+					.addNomeFuncionario(o[0].toString())
+					.addCargoFuncionario(o[1].toString())
 					.addPlaca(o[2].toString())
 					.addCarroInformacao(o[3].toString(), o[4].toString(), o[5].toString(), Integer.parseInt(o[6].toString()))
 					.addValor(Double.parseDouble(o[7].toString()))
