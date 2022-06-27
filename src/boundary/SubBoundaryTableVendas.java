@@ -1,16 +1,14 @@
 package boundary;
 
-import control.tables.ITableStrategy;
 import control.tables.TabelaVendas;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Venda;
 
 public class SubBoundaryTableVendas extends Application {
 	
-	ITableStrategy<Venda> tableVendas = new TabelaVendas();
+	TabelaVendas tableVendas = new TabelaVendas();
 	
 	public void start(Stage stage) throws Exception {
 

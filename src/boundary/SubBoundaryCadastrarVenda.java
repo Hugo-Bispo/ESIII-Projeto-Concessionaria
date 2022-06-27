@@ -19,11 +19,12 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarVenda extends Application{
+	StyleBoundary style = new StyleBoundary();
+	
 	VendedorController controlVendedor = new VendedorController();
 
 	VendasCotroller controlVenda = new VendasCotroller();
@@ -65,22 +66,22 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 //		TilePane Titulo e Button Cadastrar Cliente
 		TilePane index_pane = new TilePane();
-		index_pane.getChildren().addAll(TextStyle("Cadastro de Vendas"));
+		index_pane.getChildren().addAll(style.TextStyle("Cadastro de Vendas"));
 		index_pane.setHgap(100);
 		index_pane.setAlignment(Pos.CENTER);
 		index_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
 
 //		Gridpane para Pesquisar Informacao
 		GridPane pesquisa_pane = new GridPane();
-		pesquisa_pane.add(TextStyle("Codº Vendedor:"), 0, 0);
+		pesquisa_pane.add(style.TextStyle("Codº Vendedor:"), 0, 0);
 		pesquisa_pane.add(txtFuncionalVendas, 1, 0);
 		pesquisa_pane.add(btnPesquisarVendedor, 2, 0);
 		
-		pesquisa_pane.add(TextStyle("Placa Carro:"), 0, 1);
+		pesquisa_pane.add(style.TextStyle("Placa Carro:"), 0, 1);
 		pesquisa_pane.add(txtPlaca, 1, 1);
 		pesquisa_pane.add(btnPesquisarCarro, 2, 1);
 		
-		pesquisa_pane.add(TextStyle("CPF Cliente:"), 0, 2);
+		pesquisa_pane.add(style.TextStyle("CPF Cliente:"), 0, 2);
 		pesquisa_pane.add(txtClienteCPF, 1, 2);
 		pesquisa_pane.add(btnPesquisarCliente, 2, 2);
 		
@@ -104,9 +105,9 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 //		Gridpane Informacao Vendedor
 		GridPane vendedor_pane = new GridPane();
-		vendedor_pane.add(TextStyle("Nome: ", textNomeVendedor), 0, 0);
-		vendedor_pane.add(TextStyle("Telefone: ", textTelefoneVendedor), 1, 0);
-		vendedor_pane.add(TextStyle("Cargo: ", textCargo), 2, 0);
+		vendedor_pane.add(style.TextStyle("Nome: ", textNomeVendedor), 0, 0);
+		vendedor_pane.add(style.TextStyle("Telefone: ", textTelefoneVendedor), 1, 0);
+		vendedor_pane.add(style.TextStyle("Cargo: ", textCargo), 2, 0);
 		vendedor_pane.setHgap(5);
 
 		Bindings.bindBidirectional(textNomeVendedor.textProperty(), controlVenda.nomeVendedorProperty());
@@ -115,12 +116,12 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 //		Gridpane Informacao Carro
 		GridPane carro_pane = new GridPane();
-		carro_pane.add(TextStyle("Modelo: ", textModelo), 0, 0);
-		carro_pane.add(TextStyle("Versão: ", textVersao), 1, 0);
-		carro_pane.add(TextStyle("Marca: ", textMarca), 2, 0);
-		carro_pane.add(TextStyle("Valor: ", textValor), 0, 1);
-		carro_pane.add(TextStyle("Desconto: ", textDesconto), 1, 1);
-		carro_pane.add(TextStyle("Valor Final: ", textValorFinal), 2, 1);
+		carro_pane.add(style.TextStyle("Modelo: ", textModelo), 0, 0);
+		carro_pane.add(style.TextStyle("Versão: ", textVersao), 1, 0);
+		carro_pane.add(style.TextStyle("Marca: ", textMarca), 2, 0);
+		carro_pane.add(style.TextStyle("Valor: ", textValor), 0, 1);
+		carro_pane.add(style.TextStyle("Desconto: ", textDesconto), 1, 1);
+		carro_pane.add(style.TextStyle("Valor Final: ", textValorFinal), 2, 1);
 		carro_pane.setHgap(5);
 		carro_pane.setVgap(1);
 		
@@ -133,9 +134,9 @@ public class SubBoundaryCadastrarVenda extends Application{
 		
 //		Gridpane Informacao Cliente
 		GridPane cliente_pane = new GridPane();
-		cliente_pane.add(TextStyle("Nome: ", textNomeCliente), 0, 0);
-		cliente_pane.add(TextStyle("Telefone: ", textTelefoneCliente), 1, 0);
-		cliente_pane.add(TextStyle("CPF: ", textCpfCliente), 2, 0);
+		cliente_pane.add(style.TextStyle("Nome: ", textNomeCliente), 0, 0);
+		cliente_pane.add(style.TextStyle("Telefone: ", textTelefoneCliente), 1, 0);
+		cliente_pane.add(style.TextStyle("CPF: ", textCpfCliente), 2, 0);
 		cliente_pane.setHgap(5);
 
 		Bindings.bindBidirectional(textNomeCliente.textProperty(), controlVenda.nomeClienteProperty());
@@ -181,12 +182,12 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 		GridPane informacaoVenda_pane = new GridPane();
 		informacaoVenda_pane.add(pesquisa_pane, 0, 0);
-		informacaoVenda_pane.add(TextStyle("Informações Venda"), 0, 1);
-		informacaoVenda_pane.add(TextStyle("Vendedor"), 0, 2);
+		informacaoVenda_pane.add(style.TextStyle("Informações Venda"), 0, 1);
+		informacaoVenda_pane.add(style.TextStyle("Vendedor"), 0, 2);
 		informacaoVenda_pane.add(vendedor_pane, 0, 3);
-		informacaoVenda_pane.add(TextStyle("Carro"), 0, 4);
+		informacaoVenda_pane.add(style.TextStyle("Carro"), 0, 4);
 		informacaoVenda_pane.add(carro_pane, 0, 5);
-		informacaoVenda_pane.add(TextStyle("Cliente"), 0, 6);
+		informacaoVenda_pane.add(style.TextStyle("Cliente"), 0, 6);
 		informacaoVenda_pane.add(cliente_pane, 0, 7);
 		informacaoVenda_pane.add(descontoVender_pane, 0, 8);
 		informacaoVenda_pane.setAlignment(Pos.CENTER);
@@ -205,39 +206,5 @@ public class SubBoundaryCadastrarVenda extends Application{
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
-	}
-	
-	public GridPane GridStyle(GridPane grid) {
-		GridPane paneStyle = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setStyle("-fx-text-fill: white;-fx-background-radius: 0px;-fx-border-radius: 0px;"
-				+ "-fx-border-width: 5px;-fx-border-color: white;");
-
-		return paneStyle;
-	}
-
-	public Text TextStyle(String texto) {
-		Text text = new Text(texto);
-		text.setFill(Color.WHITE);
-		text.setStyle("-fx-font: 24 arial;-fx-font-weight: bold;");
-		return text;
-	}
-
-	public GridPane TextStyle(String textIndice, Text textButton) {
-		GridPane paneStyle = new GridPane();
-		Text text = new Text(textIndice);
-		text.setFill(Color.WHITE);
-		text.setStyle("-fx-font: 22 arial;-fx-font-weight: bold");
-		textButton.setFill(Color.WHITE);
-		textButton.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
-		paneStyle.add(text, 0, 0);
-		paneStyle.add(textButton, 1, 0);
-		paneStyle.setMinSize(300, 50);
-		paneStyle.setMaxSize(300, 50);
-		paneStyle.setAlignment(Pos.CENTER);
-		paneStyle.setStyle("-fx-background-radius: 300px;-fx-border-radius: 300px;"
-				+ "-fx-border-width: 5px;-fx-border-color: GRAY;");
-
-		return paneStyle;
 	}
 }

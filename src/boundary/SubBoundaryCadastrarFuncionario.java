@@ -2,7 +2,6 @@ package boundary;
 
 import java.sql.SQLException;
 
-import control.VendasCotroller;
 import control.VendedorController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -11,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -21,12 +19,11 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarFuncionario extends Application{
+	StyleBoundary style = new StyleBoundary();
 	VendedorController controlVendedor = new VendedorController();
-	VendasCotroller controlVenda = new VendasCotroller();
 
 	private Button btnCriar = new Button("Cadastrar");
 	private Button btnAtualizar = new Button("Atualizar");
@@ -48,14 +45,14 @@ public class SubBoundaryCadastrarFuncionario extends Application{
 
 //		Gridpane para Cadastrar Vendedor
 		GridPane vendedor_pane = new GridPane();
-		vendedor_pane.add(new Text("Cadastrar Vendedor"), 0, 0);
-		vendedor_pane.add(new Label("Funcional:"), 0, 1);
+		vendedor_pane.add(style.TextStyle("Cadastrar Vendedor"), 0, 0);
+		vendedor_pane.add(style.TextStyle("Funcional:"), 0, 1);
 		vendedor_pane.add(txtFuncionalVendedor, 1, 1);
-		vendedor_pane.add(new Label("Nome:"), 0, 2);
+		vendedor_pane.add(style.TextStyle("Nome:"), 0, 2);
 		vendedor_pane.add(txtNome, 1, 2);
-		vendedor_pane.add(new Label("Telefone:"), 0, 3);
+		vendedor_pane.add(style.TextStyle("Telefone:"), 0, 3);
 		vendedor_pane.add(txtTelefone, 1, 3);
-		vendedor_pane.add(new Label("Cargo: "), 0, 4);
+		vendedor_pane.add(style.TextStyle("Cargo: "), 0, 4);
 		vendedor_pane.add(boxCargo, 1, 4);
 		vendedor_pane.add(btnCriar, 0, 5);
 		vendedor_pane.add(btnPesquisar, 1, 5);

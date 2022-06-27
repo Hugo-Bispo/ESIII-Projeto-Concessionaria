@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class StyleBoundary {
+	
 	public Text TextStyle(String texto) {
 		Text text = new Text(texto);
 		text.setFill(Color.WHITE);
@@ -26,6 +27,15 @@ public class StyleBoundary {
 		paneStyle.setAlignment(Pos.CENTER);
 		paneStyle.setStyle("-fx-background-radius: 300px;-fx-border-radius: 300px;"
 				+ "-fx-border-width: 5px;-fx-border-color: GRAY;");
+
+		return paneStyle;
+	}
+	
+	public GridPane GridStyle(GridPane grid) {
+		GridPane paneStyle = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setStyle("-fx-text-fill: white;-fx-background-radius: 0px;-fx-border-radius: 0px;"
+				+ "-fx-border-width: 5px;-fx-border-color: white;");
 
 		return paneStyle;
 	}

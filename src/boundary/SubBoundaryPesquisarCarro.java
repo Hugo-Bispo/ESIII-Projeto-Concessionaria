@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
 public class SubBoundaryPesquisarCarro extends Application{
+	StyleBoundary style = new StyleBoundary();
 	control.CarroController control_carro = new CarroController();
 
 	private TextField txtPlaca = new TextField();
@@ -83,29 +84,29 @@ public class SubBoundaryPesquisarCarro extends Application{
 
 //		GridPane Informacao do Carro
 		GridPane paneModelo = new GridPane();
-		paneModelo = TextStyle("Modelo:", textModelo);
+		paneModelo = style.TextStyle("Modelo:", textModelo);
 		GridPane paneVersao = new GridPane();
-		paneVersao = TextStyle("Versão:", textVersao);
+		paneVersao = style.TextStyle("Versão:", textVersao);
 		GridPane paneMarca = new GridPane();
-		paneMarca = TextStyle("Marca:", textMarca);
+		paneMarca = style.TextStyle("Marca:", textMarca);
 		GridPane paneValor = new GridPane();
-		paneValor = TextStyle("Valor:", textValor);
+		paneValor = style.TextStyle("Valor:", textValor);
 		GridPane paneDisponibilidade = new GridPane();
-		paneDisponibilidade = TextStyle("Disponiblidade:", textDisponibilidade);
+		paneDisponibilidade = style.TextStyle("Disponiblidade:", textDisponibilidade);
 		GridPane paneAgencia = new GridPane();
-		paneAgencia = TextStyle("Data Cadastro:", calendarDataCadastro);
+		paneAgencia = style.TextStyle("Data Cadastro:", calendarDataCadastro);
 		GridPane paneAno = new GridPane();
-		paneAno = TextStyle("Ano:", textAno);
+		paneAno = style.TextStyle("Ano:", textAno);
 		GridPane paneQuilometragem = new GridPane();
-		paneQuilometragem = TextStyle("Quilometragem:", textQuilometragem);
+		paneQuilometragem = style.TextStyle("Quilometragem:", textQuilometragem);
 		GridPane paneCilindrada = new GridPane();
-		paneCilindrada = TextStyle("Cilindrada:", textCilindrada);
+		paneCilindrada = style.TextStyle("Cilindrada:", textCilindrada);
 		GridPane paneCombustivel = new GridPane();
-		paneCombustivel = TextStyle("Combustivel:", textCombustivel);
+		paneCombustivel = style.TextStyle("Combustivel:", textCombustivel);
 		GridPane paneCambio = new GridPane();
-		paneCambio = TextStyle("Câmbio:", textCambio);
+		paneCambio = style.TextStyle("Câmbio:", textCambio);
 		GridPane paneCor = new GridPane();
-		paneCor = TextStyle("Cor:", textCor);
+		paneCor = style.TextStyle("Cor:", textCor);
 
 
 		GridPane pane_info_carro = new GridPane();
@@ -155,22 +156,5 @@ public class SubBoundaryPesquisarCarro extends Application{
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
-	}
-
-	public GridPane TextStyle(String textIndice, Text textButton) {
-		GridPane paneStyle = new GridPane();
-		Text text = new Text(textIndice);
-		text.setFill(Color.WHITE);
-		text.setStyle("-fx-font: 22 arial;-fx-font-weight: bold");
-		textButton.setFill(Color.WHITE);
-		paneStyle.add(text, 0, 0);
-		paneStyle.add(textButton, 1, 0);
-		paneStyle.setMinSize(300, 50);
-		paneStyle.setMaxSize(300, 50);
-		paneStyle.setAlignment(Pos.CENTER);
-		paneStyle.setStyle("-fx-background-radius: 300px;-fx-border-radius: 300px;"
-				+ "-fx-border-width: 5px;-fx-border-color: GRAY;");
-
-		return paneStyle;
 	}
 }

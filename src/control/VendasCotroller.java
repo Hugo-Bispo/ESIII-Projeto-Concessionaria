@@ -17,6 +17,7 @@ import util.HibernateUtil;
 import javafx.beans.property.*;
 
 public class VendasCotroller {
+	private double DescontoFinal;
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	CarroDAO carroDAO = new CarroDAO(sf);
 	VendaDAO vendaDAO = new VendaDAO(sf);
@@ -112,6 +113,9 @@ public class VendasCotroller {
 		
 		if (venda.getCarro().getPlaca() != null) {
 			venda.setCarro(carroDAO.selectOne(venda.getCarro()));
+			if(valorFinalCarro.get() != "") {
+				venda.getCarro().setValorFinal(DescontoFinal);
+			}
 		}
 		if (venda.getVendedor().getFuncional() != 0) {
 			venda.setVendedor(vendedorDAO.selectOne(venda.getVendedor()));
@@ -158,6 +162,7 @@ public class VendasCotroller {
 		Venda v = new Venda();
 		v = boundaryToEntity();
 		descontoCoR.proximoDesconto(v);
+		DescontoFinal = v.getCarro().getValorFinal();
 		entityToBoundary(v);
 	}
 

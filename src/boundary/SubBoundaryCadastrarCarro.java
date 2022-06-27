@@ -22,11 +22,10 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarCarro extends Application{
+	StyleBoundary style = new StyleBoundary();
 	control.CarroController control_carro = new CarroController();
 
 	private Button btnCriar = new Button("Cadastrar");
@@ -67,29 +66,29 @@ public class SubBoundaryCadastrarCarro extends Application{
 //		GridPane Informacao do Carro
 		GridPane pane_info_carro = new GridPane();
 
-		pane_info_carro.add(TextStyle("Placa: "), 0, 0);
+		pane_info_carro.add(style.TextStyle("Placa: "), 0, 0);
 		pane_info_carro.add(txtPlaca, 1, 0);
-		pane_info_carro.add(TextStyle("Valor: "), 2, 0);
+		pane_info_carro.add(style.TextStyle("Valor: "), 2, 0);
 		pane_info_carro.add(txtValor, 3, 0);
-		pane_info_carro.add(TextStyle("Data Cadastro: "), 4, 0);
+		pane_info_carro.add(style.TextStyle("Data Cadastro: "), 4, 0);
 		pane_info_carro.add(calendarDataCadastro, 5, 0);
-		pane_info_carro.add(TextStyle("Modelo: "), 0, 1);
+		pane_info_carro.add(style.TextStyle("Modelo: "), 0, 1);
 		pane_info_carro.add(txtModelo, 1, 1);
-		pane_info_carro.add(TextStyle("Versão: "), 2, 1);
+		pane_info_carro.add(style.TextStyle("Versão: "), 2, 1);
 		pane_info_carro.add(txtVersao, 3, 1);
-		pane_info_carro.add(TextStyle("Marca: "), 4, 1);
+		pane_info_carro.add(style.TextStyle("Marca: "), 4, 1);
 		pane_info_carro.add(txtMarca, 5, 1);
-		pane_info_carro.add(TextStyle("Ano: "), 0, 2);
+		pane_info_carro.add(style.TextStyle("Ano: "), 0, 2);
 		pane_info_carro.add(txtAno, 1, 2);
-		pane_info_carro.add(TextStyle("Quilometragem: "), 2, 2);
+		pane_info_carro.add(style.TextStyle("Quilometragem: "), 2, 2);
 		pane_info_carro.add(txtQuilometragem, 3, 2);
-		pane_info_carro.add(TextStyle("Cilindrada:"), 4, 2);
+		pane_info_carro.add(style.TextStyle("Cilindrada:"), 4, 2);
 		pane_info_carro.add(txtCilindrada, 5, 2);
-		pane_info_carro.add(TextStyle("Combustivel: "), 0, 3);
+		pane_info_carro.add(style.TextStyle("Combustivel: "), 0, 3);
 		pane_info_carro.add(boxCombustivel, 1, 3);
-		pane_info_carro.add(TextStyle("Câmbio: "), 2, 3);
+		pane_info_carro.add(style.TextStyle("Câmbio: "), 2, 3);
 		pane_info_carro.add(boxCambio, 3, 3);
-		pane_info_carro.add(TextStyle("Cor: "), 4, 3);
+		pane_info_carro.add(style.TextStyle("Cor: "), 4, 3);
 		pane_info_carro.add(txtCor, 5, 3);
 		pane_info_carro.setStyle("-fx-font: 18 arial;-fx-text-fill: white;");
 		pane_info_carro.setHgap(5);
@@ -161,13 +160,5 @@ public class SubBoundaryCadastrarCarro extends Application{
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
-	}
-
-	
-	public Text TextStyle(String texto) {
-		Text text = new Text(texto);
-		text.setFill(Color.WHITE);
-		text.setStyle("-fx-font: 24 arial;-fx-font-weight: bold;");
-		return text;
 	}
 }
