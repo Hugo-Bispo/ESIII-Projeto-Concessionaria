@@ -11,9 +11,9 @@ import model.Carro;
 import persistence.CarroDAO;
 import util.HibernateUtil;
 
-public class TabelaCarros implements ITableStrategy<Carro>{
-	SessionFactory sf = HibernateUtil.getSessionFactory();
-	CarroDAO carroDAO = new CarroDAO(sf);
+public class TabelaCarros implements ITables<Carro>{
+	private SessionFactory sf = HibernateUtil.getSessionFactory();
+	private CarroDAO carroDAO = new CarroDAO(sf);
 	
 	private TableView<Carro> tableCarro = new TableView<>();
 	ObservableList<Carro> carroLista = FXCollections.observableArrayList();

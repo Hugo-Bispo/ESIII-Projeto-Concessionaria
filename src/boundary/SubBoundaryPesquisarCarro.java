@@ -24,8 +24,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
 public class SubBoundaryPesquisarCarro extends Application{
-	StyleBoundary style = new StyleBoundary();
-	control.CarroController control_carro = new CarroController();
+	private StyleBoundary style = new StyleBoundary();
+	private CarroController carroController = new CarroController();
 
 	private TextField txtPlaca = new TextField();
 	private Button btnPesquisar = new Button("Pesquisar");
@@ -62,11 +62,11 @@ public class SubBoundaryPesquisarCarro extends Application{
 		pane_pesquisar.setAlignment(Pos.CENTER);
 		pane_pesquisar.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
 
-		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
+		Bindings.bindBidirectional(txtPlaca.textProperty(), carroController.placaProperty());
 
 		btnPesquisar.setOnAction(e -> {
 			try {
-				control_carro.pesquisar();
+				carroController.pesquisar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -130,21 +130,21 @@ public class SubBoundaryPesquisarCarro extends Application{
 		pane_info_carro.setMaxSize(1100, 400);
 		pane_info_carro.setAlignment(Pos.CENTER);
 
-		Bindings.bindBidirectional(textModelo.textProperty(), control_carro.modeloProperty());
-		Bindings.bindBidirectional(textVersao.textProperty(), control_carro.versaoProperty());
-		Bindings.bindBidirectional(textMarca.textProperty(), control_carro.marcaProperty());
+		Bindings.bindBidirectional(textModelo.textProperty(), carroController.modeloProperty());
+		Bindings.bindBidirectional(textVersao.textProperty(), carroController.versaoProperty());
+		Bindings.bindBidirectional(textMarca.textProperty(), carroController.marcaProperty());
 
-		Bindings.bindBidirectional(textValor.textProperty(), control_carro.valorProperty());
-		Bindings.bindBidirectional(textDisponibilidade.textProperty(), control_carro.situacaoProperty());
-		Bindings.bindBidirectional(calendarDataCadastro.textProperty(), control_carro.data_cadastroProperty(), new LocalDateStringConverter());
+		Bindings.bindBidirectional(textValor.textProperty(), carroController.valorProperty());
+		Bindings.bindBidirectional(textDisponibilidade.textProperty(), carroController.situacaoProperty());
+		Bindings.bindBidirectional(calendarDataCadastro.textProperty(), carroController.data_cadastroProperty(), new LocalDateStringConverter());
 		
-		Bindings.bindBidirectional(textAno.textProperty(), control_carro.anoProperty());
-		Bindings.bindBidirectional(textQuilometragem.textProperty(), control_carro.quilometragemProperty());
-		Bindings.bindBidirectional(textCilindrada.textProperty(), control_carro.cilindraProperty());
+		Bindings.bindBidirectional(textAno.textProperty(), carroController.anoProperty());
+		Bindings.bindBidirectional(textQuilometragem.textProperty(), carroController.quilometragemProperty());
+		Bindings.bindBidirectional(textCilindrada.textProperty(), carroController.cilindraProperty());
 
-		Bindings.bindBidirectional(textCombustivel.textProperty(), control_carro.combustivelProperty());
-		Bindings.bindBidirectional(textCambio.textProperty(), control_carro.cambioProperty());
-		Bindings.bindBidirectional(textCor.textProperty(), control_carro.corProperty());
+		Bindings.bindBidirectional(textCombustivel.textProperty(), carroController.combustivelProperty());
+		Bindings.bindBidirectional(textCambio.textProperty(), carroController.cambioProperty());
+		Bindings.bindBidirectional(textCor.textProperty(), carroController.corProperty());
 
 		BorderPane border_pane = new BorderPane();
 		border_pane.setTop(pane_titulo);

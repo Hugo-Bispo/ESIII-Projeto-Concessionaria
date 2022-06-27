@@ -11,7 +11,7 @@ import model.Cliente;
 import persistence.ClienteDAO;
 import util.HibernateUtil;
 
-public class TabelaClientes implements ITableStrategy<Cliente>{
+public class TabelaClientes implements ITables<Cliente>{
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	ClienteDAO clienteDAO = new ClienteDAO(sf);
 	

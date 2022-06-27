@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class SubBoundaryTableVendas extends Application {
 	
-	TabelaVendas tableVendas = new TabelaVendas();
+	private TabelaVendas tableVendas = new TabelaVendas();
 	
 	public void start(Stage stage) throws Exception {
 

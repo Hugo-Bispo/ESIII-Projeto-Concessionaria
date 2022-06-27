@@ -17,7 +17,7 @@ import model.Venda;
 import persistence.VendaDAO;
 import util.HibernateUtil;
 
-public class TabelaVendas implements ITableStrategy<Venda>{
+public class TabelaVendas implements ITables<Venda>{
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	VendaDAO vendaDAO = new VendaDAO(sf);
 	

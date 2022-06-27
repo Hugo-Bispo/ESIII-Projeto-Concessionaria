@@ -2,7 +2,7 @@ package boundary;
 
 import java.sql.SQLException;
 
-import control.VendasCotroller;
+import control.VendasController;
 import control.VendedorController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -23,11 +23,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarVenda extends Application{
-	StyleBoundary style = new StyleBoundary();
-	
-	VendedorController controlVendedor = new VendedorController();
-
-	VendasCotroller controlVenda = new VendasCotroller();
+	private StyleBoundary style = new StyleBoundary();
+	private VendasController vendasController = new VendasController();
 
 	private Button btnVender = new Button("Vender");
 	private Button btnProcurarDesconto = new Button("Desconto");
@@ -90,13 +87,13 @@ public class SubBoundaryCadastrarVenda extends Application{
 		pesquisa_pane.setVgap(10);
 		pesquisa_pane.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
 
-		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.codigoVendedorProperty());
-		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaCarroProperty());
-		Bindings.bindBidirectional(txtClienteCPF.textProperty(), controlVenda.cpfClienteProperty());
+		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), vendasController.codigoVendedorProperty());
+		Bindings.bindBidirectional(txtPlaca.textProperty(), vendasController.placaCarroProperty());
+		Bindings.bindBidirectional(txtClienteCPF.textProperty(), vendasController.cpfClienteProperty());
 
 		btnPesquisarCarro.setOnAction(e -> {
 			try {
-				controlVenda.pesquisar();
+				vendasController.pesquisar();
 			} catch (SQLException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
@@ -110,9 +107,9 @@ public class SubBoundaryCadastrarVenda extends Application{
 		vendedor_pane.add(style.TextStyle("Cargo: ", textCargo), 2, 0);
 		vendedor_pane.setHgap(5);
 
-		Bindings.bindBidirectional(textNomeVendedor.textProperty(), controlVenda.nomeVendedorProperty());
-		Bindings.bindBidirectional(textTelefoneVendedor.textProperty(), controlVenda.telefoneVendedorProperty());
-		Bindings.bindBidirectional(textCargo.textProperty(), controlVenda.cargoVendedorProperty());
+		Bindings.bindBidirectional(textNomeVendedor.textProperty(), vendasController.nomeVendedorProperty());
+		Bindings.bindBidirectional(textTelefoneVendedor.textProperty(), vendasController.telefoneVendedorProperty());
+		Bindings.bindBidirectional(textCargo.textProperty(), vendasController.cargoVendedorProperty());
 
 //		Gridpane Informacao Carro
 		GridPane carro_pane = new GridPane();
@@ -125,12 +122,12 @@ public class SubBoundaryCadastrarVenda extends Application{
 		carro_pane.setHgap(5);
 		carro_pane.setVgap(1);
 		
-		Bindings.bindBidirectional(textModelo.textProperty(), controlVenda.modeloCarroProperty());
-		Bindings.bindBidirectional(textVersao.textProperty(), controlVenda.versaoCarroProperty());
-		Bindings.bindBidirectional(textMarca.textProperty(), controlVenda.marcaCarroProperty());
-		Bindings.bindBidirectional(textValor.textProperty(), controlVenda.valorCarroProperty());
-		Bindings.bindBidirectional(textDesconto.textProperty(), controlVenda.valorDescontoCarroProperty());
-		Bindings.bindBidirectional(textValorFinal.textProperty(), controlVenda.valorFinalCarroProperty());
+		Bindings.bindBidirectional(textModelo.textProperty(), vendasController.modeloCarroProperty());
+		Bindings.bindBidirectional(textVersao.textProperty(), vendasController.versaoCarroProperty());
+		Bindings.bindBidirectional(textMarca.textProperty(), vendasController.marcaCarroProperty());
+		Bindings.bindBidirectional(textValor.textProperty(), vendasController.valorCarroProperty());
+		Bindings.bindBidirectional(textDesconto.textProperty(), vendasController.valorDescontoCarroProperty());
+		Bindings.bindBidirectional(textValorFinal.textProperty(), vendasController.valorFinalCarroProperty());
 		
 //		Gridpane Informacao Cliente
 		GridPane cliente_pane = new GridPane();
@@ -139,9 +136,9 @@ public class SubBoundaryCadastrarVenda extends Application{
 		cliente_pane.add(style.TextStyle("CPF: ", textCpfCliente), 2, 0);
 		cliente_pane.setHgap(5);
 
-		Bindings.bindBidirectional(textNomeCliente.textProperty(), controlVenda.nomeClienteProperty());
-		Bindings.bindBidirectional(textTelefoneCliente.textProperty(), controlVenda.telefoneClienteProperty());
-		Bindings.bindBidirectional(textCpfCliente.textProperty(), controlVenda.cpfClienteProperty());
+		Bindings.bindBidirectional(textNomeCliente.textProperty(), vendasController.nomeClienteProperty());
+		Bindings.bindBidirectional(textTelefoneCliente.textProperty(), vendasController.telefoneClienteProperty());
+		Bindings.bindBidirectional(textCpfCliente.textProperty(), vendasController.cpfClienteProperty());
 
 
 //		TilePane Botoes Vender e Desconto
@@ -153,7 +150,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 		btnVender.setOnAction(e -> {
 			try {
-				controlVenda.adicionar();
+				vendasController.adicionar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -162,7 +159,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 		btnProcurarDesconto.setOnAction(e -> {
 			try {
-				controlVenda.procurarDesconto();
+				vendasController.procurarDesconto();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -171,7 +168,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 		
 		btnPesquisarCarro.setOnAction(e -> {
 			try {
-				controlVenda.pesquisar();
+				vendasController.pesquisar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

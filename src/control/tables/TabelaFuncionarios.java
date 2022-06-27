@@ -11,7 +11,7 @@ import model.Vendedor;
 import persistence.VendedorDAO;
 import util.HibernateUtil;
 
-public class TabelaFuncionarios implements ITableStrategy<Vendedor>{
+public class TabelaFuncionarios implements ITables<Vendedor>{
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	VendedorDAO vendedeorDAO = new VendedorDAO(sf);
 	

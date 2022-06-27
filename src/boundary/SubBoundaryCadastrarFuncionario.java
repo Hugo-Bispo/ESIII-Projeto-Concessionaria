@@ -22,8 +22,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarFuncionario extends Application{
-	StyleBoundary style = new StyleBoundary();
-	VendedorController controlVendedor = new VendedorController();
+	private StyleBoundary style = new StyleBoundary();
+	private VendedorController vendedorController = new VendedorController();
 
 	private Button btnCriar = new Button("Cadastrar");
 	private Button btnAtualizar = new Button("Atualizar");
@@ -66,14 +66,14 @@ public class SubBoundaryCadastrarFuncionario extends Application{
 		tela_pane.setCenter(vendedor_pane);
 		tela_pane.setBackground(new Background(background));
 
-		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), controlVendedor.funcionalProperty());
-		Bindings.bindBidirectional(txtNome.textProperty(), controlVendedor.nomeProperty());
-		Bindings.bindBidirectional(txtTelefone.textProperty(), controlVendedor.telefoneProperty());
-		Bindings.bindBidirectional(boxCargo.valueProperty(), controlVendedor.cargoProperty());
+		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), vendedorController.funcionalProperty());
+		Bindings.bindBidirectional(txtNome.textProperty(), vendedorController.nomeProperty());
+		Bindings.bindBidirectional(txtTelefone.textProperty(), vendedorController.telefoneProperty());
+		Bindings.bindBidirectional(boxCargo.valueProperty(), vendedorController.cargoProperty());
 
 		btnCriar.setOnAction(e -> {
 			try {
-				controlVendedor.adicionar();
+				vendedorController.adicionar();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -81,7 +81,7 @@ public class SubBoundaryCadastrarFuncionario extends Application{
 		
 		btnPesquisar.setOnAction(e -> {
 			try {
-				controlVendedor.pesquisar();
+				vendedorController.pesquisar();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -89,7 +89,7 @@ public class SubBoundaryCadastrarFuncionario extends Application{
 
 		btnAtualizar.setOnAction(e -> {
 			try {
-				controlVendedor.atualizar();
+				vendedorController.atualizar();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -97,7 +97,7 @@ public class SubBoundaryCadastrarFuncionario extends Application{
 		
 		btnExcluir.setOnAction(e -> {
 			try {
-				controlVendedor.excluir();
+				vendedorController.excluir();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}

@@ -16,7 +16,7 @@ import persistence.VendedorDAO;
 import util.HibernateUtil;
 import javafx.beans.property.*;
 
-public class VendasCotroller {
+public class VendasController {
 	private double DescontoFinal;
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	CarroDAO carroDAO = new CarroDAO(sf);

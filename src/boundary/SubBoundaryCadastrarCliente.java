@@ -21,8 +21,8 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarCliente extends Application{
-	StyleBoundary style = new StyleBoundary();
-	ClienteController clienteController = new ClienteController();
+	private StyleBoundary style = new StyleBoundary();
+	private ClienteController clienteController = new ClienteController();
 	
 	private Button btnCriar = new Button("Cadastrar");
 	private Button btnAtualizar = new Button("Atualizar");

@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class SubBoundaryTableFuncionarios extends Application {
 	
-	TabelaFuncionarios tableFuncionarios = new TabelaFuncionarios();
+	private TabelaFuncionarios tableFuncionarios = new TabelaFuncionarios();
 	
 	public void start(Stage stage) throws Exception {
 

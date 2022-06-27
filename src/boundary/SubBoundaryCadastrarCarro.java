@@ -25,8 +25,8 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 public class SubBoundaryCadastrarCarro extends Application{
-	StyleBoundary style = new StyleBoundary();
-	control.CarroController control_carro = new CarroController();
+	private StyleBoundary style = new StyleBoundary();
+	private CarroController carroController = new CarroController();
 
 	private Button btnCriar = new Button("Cadastrar");
 	private Button btnAtualizar = new Button("Atualizar");
@@ -95,23 +95,23 @@ public class SubBoundaryCadastrarCarro extends Application{
 		pane_info_carro.setVgap(20);
 		pane_info_carro.setAlignment(Pos.CENTER);
 
-		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
-		Bindings.bindBidirectional(txtValor.textProperty(), control_carro.valorProperty());
-		Bindings.bindBidirectional(calendarDataCadastro.valueProperty(), control_carro.data_cadastroProperty());
-		Bindings.bindBidirectional(txtModelo.textProperty(), control_carro.modeloProperty());
-		Bindings.bindBidirectional(txtVersao.textProperty(), control_carro.versaoProperty());
-		Bindings.bindBidirectional(txtMarca.textProperty(), control_carro.marcaProperty());
-		Bindings.bindBidirectional(txtAno.textProperty(), control_carro.anoProperty());
-		Bindings.bindBidirectional(txtQuilometragem.textProperty(), control_carro.quilometragemProperty());
-		Bindings.bindBidirectional(txtCilindrada.textProperty(), control_carro.cilindraProperty());
-		Bindings.bindBidirectional(boxCombustivel.valueProperty(), control_carro.combustivelProperty());
-		Bindings.bindBidirectional(boxCambio.valueProperty(), control_carro.cambioProperty());
-		Bindings.bindBidirectional(txtCor.textProperty(), control_carro.corProperty());
+		Bindings.bindBidirectional(txtPlaca.textProperty(), carroController.placaProperty());
+		Bindings.bindBidirectional(txtValor.textProperty(), carroController.valorProperty());
+		Bindings.bindBidirectional(calendarDataCadastro.valueProperty(), carroController.data_cadastroProperty());
+		Bindings.bindBidirectional(txtModelo.textProperty(), carroController.modeloProperty());
+		Bindings.bindBidirectional(txtVersao.textProperty(), carroController.versaoProperty());
+		Bindings.bindBidirectional(txtMarca.textProperty(), carroController.marcaProperty());
+		Bindings.bindBidirectional(txtAno.textProperty(), carroController.anoProperty());
+		Bindings.bindBidirectional(txtQuilometragem.textProperty(), carroController.quilometragemProperty());
+		Bindings.bindBidirectional(txtCilindrada.textProperty(), carroController.cilindraProperty());
+		Bindings.bindBidirectional(boxCombustivel.valueProperty(), carroController.combustivelProperty());
+		Bindings.bindBidirectional(boxCambio.valueProperty(), carroController.cambioProperty());
+		Bindings.bindBidirectional(txtCor.textProperty(), carroController.corProperty());
 
 //		Button Criar Carro
 		btnCriar.setOnAction(e -> {
 			try {
-				control_carro.adicionar();
+				carroController.adicionar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -121,7 +121,7 @@ public class SubBoundaryCadastrarCarro extends Application{
 //		Button Atualizar Carro
 		btnAtualizar.setOnAction(e -> {
 			try {
-				control_carro.atualizar();
+				carroController.atualizar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -131,7 +131,7 @@ public class SubBoundaryCadastrarCarro extends Application{
 //		Button Excluir Carro
 		btnExcluir.setOnAction(e -> {
 			try {
-				control_carro.excluir();
+				carroController.excluir();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -141,7 +141,7 @@ public class SubBoundaryCadastrarCarro extends Application{
 //		Button Pesquisar Carro
 		btnPesquisar.setOnAction(e -> {
 			try {
-				control_carro.pesquisar();
+				carroController.pesquisar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
