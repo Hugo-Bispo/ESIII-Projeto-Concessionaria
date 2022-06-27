@@ -91,6 +91,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.codigoVendedorProperty());
 		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaCarroProperty());
+		Bindings.bindBidirectional(txtClienteCPF.textProperty(), controlVenda.cpfClienteProperty());
 
 		btnPesquisarCarro.setOnAction(e -> {
 			try {
@@ -137,9 +138,9 @@ public class SubBoundaryCadastrarVenda extends Application{
 		cliente_pane.add(TextStyle("CPF: ", textCpfCliente), 2, 0);
 		cliente_pane.setHgap(5);
 
-		Bindings.bindBidirectional(textNomeVendedor.textProperty(), controlVenda.nomeVendedorProperty());
-		Bindings.bindBidirectional(textTelefoneVendedor.textProperty(), controlVenda.telefoneVendedorProperty());
-		Bindings.bindBidirectional(textCargo.textProperty(), controlVenda.cargoVendedorProperty());
+		Bindings.bindBidirectional(textNomeCliente.textProperty(), controlVenda.nomeClienteProperty());
+		Bindings.bindBidirectional(textTelefoneCliente.textProperty(), controlVenda.telefoneClienteProperty());
+		Bindings.bindBidirectional(textCpfCliente.textProperty(), controlVenda.cpfClienteProperty());
 
 
 //		TilePane Botoes Vender e Desconto
@@ -161,6 +162,15 @@ public class SubBoundaryCadastrarVenda extends Application{
 		btnProcurarDesconto.setOnAction(e -> {
 			try {
 				controlVenda.procurarDesconto();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		btnPesquisarCarro.setOnAction(e -> {
+			try {
+				controlVenda.pesquisar();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -190,7 +200,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 		border_pane.setCenter(informacaoVenda_pane);
 		border_pane.setBackground(new Background(background));
 
-		Scene snc = new Scene(border_pane, 1280, 500);
+		Scene snc = new Scene(border_pane, 1280, 720);
 		stage.setTitle("Controle de Vendas");
 		stage.setResizable(false);
 		stage.setScene(snc);

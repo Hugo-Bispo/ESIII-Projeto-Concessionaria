@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import model.Cliente;
+import model.ClienteBuilder;
 
 public class ClienteDAO implements IFuncoesDAO<Cliente> {
 
@@ -57,27 +58,23 @@ public class ClienteDAO implements IFuncoesDAO<Cliente> {
 	@Override
 	public List<Cliente> selectAll() {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT carro.placa, carro.modelo, carro.versao, carro.marca, carro.ano, carro.situacao,"
-				+ "carro.data_cadastro, carro.valor, carac.cilindrada, carac.combustivel, carac.cambio,"
-				+ "carac.cor, carac.quilometragem from carro "
-				+ "INNER JOIN carrocaracteristicas as carac ON carac.id_caracteristica = carro.id_caracteristica;");
-		
+		sql.append(
+				"SELECT cliente.cpf, cliente.nomeCliente, cliente.telefoneCliente, clienteendereco.logadouro, clienteendereco.numero, "
+						+ "clienteendereco.cep, clienteendereco.bairro, clienteendereco.cidade "
+						+ "FROM cliente INNER JOIN clienteendereco ON cliente.id_endereco = clienteendereco.id_endereco;");
+
 		EntityManager entityManager = sf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> clienteResultSet = query.getResultList();
 		List<Cliente> clientes = new ArrayList<Cliente>();
-//		for (Object[] o : clienteResultSet) {
-//			Cliente cliente = CarroBuilder.builder()
-//					.addPlaca(o[0].toString())
-//					.addCarroInformacao(o[1].toString(), o[2].toString(), o[3].toString(), Integer.parseInt(o[4].toString()))
-//					.addSituacao(o[5].toString())
-//					.addDataCadastro(LocalDate.parse(o[6].toString()))
-//					.addValor(Double.parseDouble(o[7].toString()))
-//					.addCaracteristicas(Double.parseDouble(o[7].toString()), o[7].toString(), o[7].toString(), o[7].toString())
-//					.get();
-//
-//			carros.add(carro);
-//		}
+		for (Object[] o : clienteResultSet) {
+			Cliente cliente = ClienteBuilder.builder()
+					.addNome(o[1].toString())
+					.addDados(o[0].toString(), o[2].toString())
+					.addEndereco(o[3].toString(), Integer.parseInt(o[4].toString()), o[5].toString(), o[6].toString(), o[7].toString())
+					.get();
+			clientes.add(cliente);
+		}
 
 		return clientes;
 	}

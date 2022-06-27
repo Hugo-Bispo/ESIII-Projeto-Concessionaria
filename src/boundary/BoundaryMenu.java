@@ -1,12 +1,9 @@
 package boundary;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -42,10 +39,10 @@ public class BoundaryMenu extends Application {
 		gridMenu.add(btnCadastrarFuncionario, 1, 1);
 		gridMenu.add(btnCadastrarCliente, 2, 1);
 		gridMenu.add(btnCadastrarVenda, 3, 1);
-		gridMenu.add(btnGerarTableVendas, 0, 2);
-		gridMenu.add(btnGerarTableCarros, 1, 2);
+		gridMenu.add(btnGerarTableCarros, 0, 2);
+		gridMenu.add(btnGerarTableFuncionarios, 1, 2);
 		gridMenu.add(btnGerarTableClientes, 2, 2);
-		gridMenu.add(btnGerarTableFuncionarios, 3, 2);
+		gridMenu.add(btnGerarTableVendas, 3, 2);
 
 		gridMenu.setHgap(50);
 		gridMenu.setVgap(25);

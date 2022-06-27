@@ -80,7 +80,7 @@ public class ClienteController implements IController<Cliente> {
 			nomeCliente.set(c.getNome());
 			cpfCliente.set(c.getCPF());
 			telefoneCliente.set(c.getTelefone());
-			ruaCliente.set(c.getEndereco().getRua());
+			ruaCliente.set(c.getEndereco().getLogadouro());
 			numeroCliente.set(String.valueOf(c.getEndereco().getNumero()));
 			cepCliente.set(c.getEndereco().getCep());
 			bairroCliente.set(c.getEndereco().getBairro());

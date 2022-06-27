@@ -60,9 +60,10 @@ public class VendaDAO implements IFuncoesDAO<Venda> {
 	public List<Venda> selectAll() {
 		StringBuffer sql = new StringBuffer();
 		sql.append(
-				"SELECT vendedor.nome, vendedor.cargo, carro.placa, carro.modelo, carro.versao, carro.marca, carro.ano, carro.valor, carro.valorFinal, venda.data_venda FROM venda"
+				"SELECT vendedor.nome, vendedor.cargo, cliente.nome, cliente.cpf, carro.placa, carro.modelo, carro.versao, carro.marca, carro.ano, carro.valor, carro.valorFinal, venda.data_venda FROM venda"
 						+ " INNER JOIN vendedor ON vendedor.funcional = venda.funcional"
-						+ " INNER JOIN carro ON carro.placa = venda.placa;");
+						+ " INNER JOIN carro ON carro.placa = venda.placa;"
+						+ " INNER JOIN cliente ON cliente.cpf = venda.cpf;");
 		EntityManager entityManager = sf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> vendedorResultSet = query.getResultList();
@@ -71,11 +72,13 @@ public class VendaDAO implements IFuncoesDAO<Venda> {
 			Venda venda = VendaBuilder.builder()
 					.addNomeFuncionario(o[0].toString())
 					.addCargoFuncionario(o[1].toString())
-					.addPlaca(o[2].toString())
-					.addCarroInformacao(o[3].toString(), o[4].toString(), o[5].toString(), Integer.parseInt(o[6].toString()))
-					.addValor(Double.parseDouble(o[7].toString()))
-					.addValorFinal(Double.parseDouble(o[8].toString()))
-					.addDataVenda(LocalDate.parse(o[9].toString()))
+					.addNomeCliente(o[2].toString())
+					.addCPFCliente(o[3].toString())
+					.addPlaca(o[4].toString())
+					.addCarroInformacao(o[5].toString(), o[6].toString(), o[7].toString(), Integer.parseInt(o[6].toString()))
+					.addValor(Double.parseDouble(o[8].toString()))
+					.addValorFinal(Double.parseDouble(o[9].toString()))
+					.addDataVenda(LocalDate.parse(o[10].toString()))
 					.get();
 			vendas.add(venda);
 		}

@@ -12,6 +12,7 @@ public class VendaBuilder {
 		this.venda = new Venda();
 		this.carro = new Carro();
 		this.vendedor = new Vendedor();
+		this.cliente = new Cliente();
 	}
 
 	public static VendaBuilder builder() {
@@ -81,7 +82,7 @@ public class VendaBuilder {
 		return this;
 	}
 	
-	public VendaBuilder addTelefone(String telefone) {
+	public VendaBuilder addTelefoneCliente(String telefone) {
 		this.cliente.setTelefone(telefone);
 		return this;
 	}

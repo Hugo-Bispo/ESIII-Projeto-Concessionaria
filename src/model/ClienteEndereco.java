@@ -16,8 +16,8 @@ public class ClienteEndereco {
 	@Column(name = "id_endereco")
 	private int id_endereco;
 
-	@Column(name = "rua", length = 20)
-	private String rua;
+	@Column(name = "logadouro", length = 50)
+	private String logadouro;
 
 	@Column(name = "numero")
 	private int numero;
@@ -39,12 +39,12 @@ public class ClienteEndereco {
 		this.id_endereco = id_endereco;
 	}
 
-	public String getRua() {
-		return rua;
+	public String getLogadouro() {
+		return logadouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogadouro(String rua) {
+		this.logadouro = rua;
 	}
 
 	public int getNumero() {
@@ -81,7 +81,7 @@ public class ClienteEndereco {
 
 	@Override
 	public String toString() {
-		return "ClienteEndereco [id_endereco=" + id_endereco + ", rua=" + rua + ", numero=" + numero + ", cep=" + cep
+		return "ClienteEndereco [id_endereco=" + id_endereco + ", rua=" + logadouro + ", numero=" + numero + ", cep=" + cep
 				+ ", bairro=" + bairro + ", cidade=" + cidade + "]";
 	}
 
