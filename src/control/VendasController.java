@@ -40,6 +40,7 @@ public class VendasController {
 	private StringProperty valorDescontoCarro = new SimpleStringProperty("");
 	private StringProperty valorFinalCarro = new SimpleStringProperty("");
 
+	private StringProperty cpfClientePesquisa = new SimpleStringProperty("");
 	private StringProperty cpfCliente = new SimpleStringProperty("");
 	private StringProperty nomeCliente = new SimpleStringProperty("");
 	private StringProperty telefoneCliente = new SimpleStringProperty("");
@@ -90,6 +91,10 @@ public class VendasController {
 		return valorFinalCarro;
 	}
 
+	public StringProperty cpfClientePesquisaProperty() {
+		return cpfClientePesquisa;
+	}
+	
 	public StringProperty cpfClienteProperty() {
 		return cpfCliente;
 	}
@@ -109,7 +114,7 @@ public class VendasController {
 		funcionalEntity = Integer.parseInt(codigoVendedor.get());
 
 		Venda venda = VendaBuilder.builder().addPlaca(placaEntity).addFuncional(funcionalEntity)
-				.addDataVenda(LocalDate.now()).addCPFCliente(cpfCliente.get()).get();
+				.addDataVenda(LocalDate.now()).addCPFCliente(cpfClientePesquisa.get()).get();
 		
 		if (venda.getCarro().getPlaca() != null) {
 			venda.setCarro(carroDAO.selectOne(venda.getCarro()));
@@ -143,7 +148,7 @@ public class VendasController {
 						.set(String.valueOf(df.format(v.getCarro().getValor() - v.getCarro().getValorFinal())));
 			}
 			valorFinalCarro.set(String.valueOf(df.format(v.getCarro().getValorFinal())));
-//			cpfCliente.set(v.getCliente().getCPF());
+			cpfCliente.set(v.getCliente().getCPF());
 			nomeCliente.set(v.getCliente().getNome());
 			telefoneCliente.set(v.getCliente().getTelefone());
 		}
@@ -161,6 +166,7 @@ public class VendasController {
 	public void procurarDesconto() throws SQLException {
 		Venda v = new Venda();
 		v = boundaryToEntity();
+		v.getCarro().setValorFinal(v.getCarro().getValor());
 		descontoCoR.proximoDesconto(v);
 		DescontoFinal = v.getCarro().getValorFinal();
 		entityToBoundary(v);

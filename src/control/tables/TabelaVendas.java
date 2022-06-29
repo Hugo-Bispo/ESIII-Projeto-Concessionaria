@@ -1,7 +1,5 @@
 package control.tables;
 
-import java.time.LocalDate;
-
 import org.hibernate.SessionFactory;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -9,10 +7,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Cell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.Venda;
 import persistence.VendaDAO;
 import util.HibernateUtil;

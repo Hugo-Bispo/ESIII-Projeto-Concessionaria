@@ -34,8 +34,6 @@ public class SubBoundaryCadastrarVenda extends Application{
 	private TextField txtClienteCPF = new TextField();
 	
 	private Button btnPesquisarCarro = new Button("Pesquisar");
-	private Button btnPesquisarVendedor = new Button("Pesquisar");
-	private Button btnPesquisarCliente = new Button("Pesquisar");
 
 	private Text textNomeVendedor = new Text();
 	private Text textTelefoneVendedor = new Text();
@@ -72,7 +70,6 @@ public class SubBoundaryCadastrarVenda extends Application{
 		GridPane pesquisa_pane = new GridPane();
 		pesquisa_pane.add(style.TextStyle("Codº Vendedor:"), 0, 0);
 		pesquisa_pane.add(txtFuncionalVendas, 1, 0);
-		pesquisa_pane.add(btnPesquisarVendedor, 2, 0);
 		
 		pesquisa_pane.add(style.TextStyle("Placa Carro:"), 0, 1);
 		pesquisa_pane.add(txtPlaca, 1, 1);
@@ -80,7 +77,6 @@ public class SubBoundaryCadastrarVenda extends Application{
 		
 		pesquisa_pane.add(style.TextStyle("CPF Cliente:"), 0, 2);
 		pesquisa_pane.add(txtClienteCPF, 1, 2);
-		pesquisa_pane.add(btnPesquisarCliente, 2, 2);
 		
 		
 		pesquisa_pane.setHgap(5);
@@ -89,7 +85,7 @@ public class SubBoundaryCadastrarVenda extends Application{
 
 		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), vendasController.codigoVendedorProperty());
 		Bindings.bindBidirectional(txtPlaca.textProperty(), vendasController.placaCarroProperty());
-		Bindings.bindBidirectional(txtClienteCPF.textProperty(), vendasController.cpfClienteProperty());
+		Bindings.bindBidirectional(txtClienteCPF.textProperty(), vendasController.cpfClientePesquisaProperty());
 
 		btnPesquisarCarro.setOnAction(e -> {
 			try {

@@ -37,6 +37,7 @@ public class TabelaFuncionarios implements ITables<Vendedor>{
 
 		tableVendedor.getColumns().addAll(col1, col2, col3, col4);
 		
+		tableVendedor.setMinSize(720, 480);
 		tableVendedor.setItems(vendedorLista);
 		
 		tableVendedor.setStyle("-fx-font: 14 arial");

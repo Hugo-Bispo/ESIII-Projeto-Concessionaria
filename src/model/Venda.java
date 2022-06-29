@@ -33,8 +33,6 @@ public class Venda{
 	@NotNull
 	private Cliente cliente;
 	
-	
-	@Id
 	@Column(name="data_venda")
 	@NotNull
 	private LocalDate data_venda;

@@ -59,7 +59,7 @@ public class SubBoundaryCadastrarCliente extends Application{
 		vendedor_pane.add(txtCPF, 3, 0);
 		vendedor_pane.add(style.TextStyle("Telefone:"), 4, 0);
 		vendedor_pane.add(txtTelefone, 5, 0);
-		vendedor_pane.add(style.TextStyle("Logadouro:"), 0, 1);
+		vendedor_pane.add(style.TextStyle("Logradouro:"), 0, 1);
 		vendedor_pane.add(txtRua, 1, 1);
 		vendedor_pane.add(style.TextStyle("Numero:"), 2, 1);
 		vendedor_pane.add(txtNumero, 3, 1);

@@ -13,7 +13,7 @@ public class DescontoTresMesesAgencia implements IDesconto {
 		Double valorFinal = v.getCarro().getValorFinal();
 		
 		if (dataAtual.isAfter(dataCadastro) && v.getCarro().getValor() < 100000 ) {
-			valorFinal = valorFinal - (valorFinal * 0.02);
+			valorFinal = valorFinal - (valorFinal * 0.01);
 	}
 	return valorFinal;
 	}
