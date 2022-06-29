@@ -25,7 +25,7 @@ public class ClienteEndereco {
 	@Column(name = "cep", length = 8)
 	private String cep;
 
-	@Column(name = "bairro", length = 8)
+	@Column(name = "bairro", length = 20)
 	private String bairro;
 
 	@Column(name = "cidade", length = 20)

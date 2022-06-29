@@ -25,12 +25,12 @@ public class TabelaCarros implements ITables<Carro>{
 		carroLista.addAll(carroDAO.selectAll());
 		TableColumn<Carro, Integer> col1 = new TableColumn<>("Placa Carro");
 		col1.setCellValueFactory(new PropertyValueFactory<>("placa"));
+		
+		TableColumn<Carro, String> col2 = new TableColumn<>("Modelo");
+		col2.setCellValueFactory(new PropertyValueFactory<>("modelo"));
 
-		TableColumn<Carro, String> col2 = new TableColumn<>("Versão");
-		col2.setCellValueFactory(new PropertyValueFactory<>("versao"));
-
-		TableColumn<Carro, String> col3 = new TableColumn<>("Marca");
-		col3.setCellValueFactory(new PropertyValueFactory<>("marca"));
+		TableColumn<Carro, String> col3 = new TableColumn<>("Versão");
+		col3.setCellValueFactory(new PropertyValueFactory<>("versao"));
 
 		TableColumn<Carro, String> col4 = new TableColumn<>("Ano");
 		col4.setCellValueFactory(new PropertyValueFactory<>("ano"));
